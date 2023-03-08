@@ -1,23 +1,24 @@
-
 package entidades;
 
 public class Empleado {
-    
+
     private int id_empleado;
     private String nombre;
     private String telefono;
     private String rol;
     private String dpi;
-    private String id_tienda;
+    private int id_tienda;
+    private String username;
     private String password;
 
-    public Empleado(int id_empleado, String nombre, String telefono, String rol, String dpi, String id_tienda, String password) {
+    public Empleado(int id_empleado, String nombre, String telefono, String rol, String dpi, int id_tienda, String username, String password) {
         this.id_empleado = id_empleado;
         this.nombre = nombre;
         this.telefono = telefono;
         this.rol = rol;
         this.dpi = dpi;
         this.id_tienda = id_tienda;
+        this.username = username;
         this.password = password;
     }
 
@@ -64,12 +65,20 @@ public class Empleado {
         this.dpi = dpi;
     }
 
-    public String getId_tienda() {
+    public int getId_tienda() {
         return id_tienda;
     }
 
-    public void setId_tienda(String id_tienda) {
+    public void setId_tienda(int id_tienda) {
         this.id_tienda = id_tienda;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -84,5 +93,5 @@ public class Empleado {
     public String toString() {
         return "Empleado{" + "id_empleado=" + id_empleado + ", nombre=" + nombre + ", telefono=" + telefono + ", rol=" + rol + ", dpi=" + dpi + ", id_tienda=" + id_tienda + ", password=" + password + '}';
     }
-    
+
 }
