@@ -46,7 +46,6 @@ public class ProductoDAO {
     }
     
     public Producto listarProductosPorId(int id_producto) {
-        System.out.println(id_producto);
         Producto producto = null;
         Connection con = conexion.getConnection();
         PreparedStatement pr = null;

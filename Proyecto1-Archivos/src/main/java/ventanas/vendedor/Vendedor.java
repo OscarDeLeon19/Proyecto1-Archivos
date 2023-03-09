@@ -6,8 +6,10 @@
 package ventanas.vendedor;
 
 import datos.ProductoDAO;
+import datos.TiendaDAO;
 import entidades.Empleado;
 import entidades.Producto;
+import entidades.Tienda;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,8 +17,10 @@ import javax.swing.table.DefaultTableModel;
 public class Vendedor extends javax.swing.JFrame {
 
     private ProductoDAO productoDao = new ProductoDAO();
+    private TiendaDAO tiendaDao = new TiendaDAO();
     private Producto productoSeleccionado;
     private Empleado empleado;
+    private Tienda tienda;
     ArrayList<Producto> productosVenta = new ArrayList<>();
 
     public Vendedor(Empleado empleado) {
@@ -24,12 +28,14 @@ public class Vendedor extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         this.empleado = empleado;
+        tienda = tiendaDao.listarTiendaPorCodigo(empleado.getId_tienda());
         labelUser.setText(empleado.getNombre());
         labelRol.setText(empleado.getRol());
-        labelTienda.setText(String.valueOf(empleado.getId_tienda()));
+        labelTienda.setText(tienda.getNombre());
         actualizarTablaProductos();
         botonAumentar.setEnabled(false);
         botonDisminuir.setEnabled(false);
+        
 
     }
 
