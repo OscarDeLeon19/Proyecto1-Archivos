@@ -5,6 +5,7 @@
  */
 package ventanas;
 
+import ventanas.vendedor.Vendedor;
 import datos.EmpleadoDAO;
 import entidades.Empleado;
 import java.sql.SQLException;
@@ -43,7 +44,11 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Id del Empleado: ");
 
+        textoId.setText("user1");
+
         jLabel3.setText("Contraseña:");
+
+        textoContraseña.setText("12345");
 
         botonEntrar.setText("Entrar");
         botonEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +109,11 @@ public class Login extends javax.swing.JFrame {
             EmpleadoDAO empDao = new EmpleadoDAO();
             Empleado empleado = empDao.obtenerEmpleadoLogin(username, contraseña);
             if (empleado != null) {
-                System.out.println(empleado.toString());
+                if(empleado.getRol().equals("Vendedor")){
+                    Vendedor vendedor = new Vendedor(empleado);
+                    vendedor.setVisible(true);
+                    dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
             }
