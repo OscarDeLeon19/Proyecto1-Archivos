@@ -8,6 +8,7 @@ package ventanas.vendedor;
 import datos.ClienteDAO;
 import datos.ProductoDAO;
 import datos.TiendaDAO;
+import datos.VentaDAO;
 import entidades.Cliente;
 import entidades.Empleado;
 import entidades.Producto;
@@ -24,8 +25,9 @@ public class Vendedor extends javax.swing.JFrame {
     private Producto productoSeleccionado;
     private Empleado empleado;
     private Tienda tienda;
-    private Cliente cliente;
+    private Cliente cliente = null;
     private ArrayList<Producto> productosVenta = new ArrayList<>();
+    Lista_Productos lista = new Lista_Productos(productosVenta);
 
     public Vendedor(Empleado empleado) {
         initComponents();
@@ -116,6 +118,8 @@ public class Vendedor extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         textoDescuentoCliente = new javax.swing.JTextField();
         botonBorrarCliente = new javax.swing.JButton();
+        botonRealizarVenta = new javax.swing.JButton();
+        botonCancelarVenta = new javax.swing.JButton();
 
         jLabel17.setText("jLabel17");
 
@@ -257,7 +261,7 @@ public class Vendedor extends javax.swing.JFrame {
 
         jLabel18.setText("Descuento: ");
 
-        textoDescuentoCliente.setText("--");
+        textoDescuentoCliente.setText("0");
         textoDescuentoCliente.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         textoDescuentoCliente.setEnabled(false);
 
@@ -265,6 +269,20 @@ public class Vendedor extends javax.swing.JFrame {
         botonBorrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonBorrarClienteActionPerformed(evt);
+            }
+        });
+
+        botonRealizarVenta.setText("Realizar Venta");
+        botonRealizarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRealizarVentaActionPerformed(evt);
+            }
+        });
+
+        botonCancelarVenta.setText("Cancelar Venta");
+        botonCancelarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarVentaActionPerformed(evt);
             }
         });
 
@@ -284,7 +302,7 @@ public class Vendedor extends javax.swing.JFrame {
                                 .addGap(172, 172, 172)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 47, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -363,10 +381,16 @@ public class Vendedor extends javax.swing.JFrame {
                                         .addComponent(botonDisminuir))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(31, 31, 31)
-                                        .addComponent(botonAgregar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botonListado)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(botonRealizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(10, 10, 10)
+                                                .addComponent(botonCancelarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(botonAgregar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(botonListado)))))
+                                .addGap(331, 331, 331)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -437,8 +461,11 @@ public class Vendedor extends javax.swing.JFrame {
                     .addComponent(jLabel18)
                     .addComponent(textoDescuentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonBorrarCliente)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonBorrarCliente)
+                    .addComponent(botonRealizarVenta)
+                    .addComponent(botonCancelarVenta))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -493,11 +520,11 @@ public class Vendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Producto Agregado a la lista");
         }
         limpiarDatos();
+        lista.actualizar();
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoActionPerformed
-        Lista_Productos lista = new Lista_Productos(productosVenta);
-        lista.setVisible(true);
+        lista.abrir();
     }//GEN-LAST:event_botonListadoActionPerformed
 
     private void botonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarClienteActionPerformed
@@ -510,20 +537,50 @@ public class Vendedor extends javax.swing.JFrame {
         textoNombreCliente.setText("Consumidor Final");
         textoTelefonoCliente.setText("--");
         textoDpiCliente.setText("--");
-        textoDescuentoCliente.setText("--");
+        textoDescuentoCliente.setText("0");
+        cliente = null;
     }//GEN-LAST:event_botonBorrarClienteActionPerformed
+
+    private void botonRealizarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarVentaActionPerformed
+        if (productosVenta.size() > 0) {
+            VentaDAO ventaDao = new VentaDAO();
+            double total = ventaDao.obtenerTotal(productosVenta);
+            if (cliente == null) {
+                cliente = clienteDao.listarClientePorCodigo("000000000");
+            }
+            int opcion = JOptionPane.showConfirmDialog(null, "El total de la compra es de: " + total + ". Nombre del cliente: " + cliente.getNombre() + ". ¿Confirmar compra?");
+            if (opcion == JOptionPane.YES_OPTION) {
+                ventaDao.realizarVenta(productosVenta, cliente, empleado, tienda);
+            } else {
+                cliente = null;
+            }
+        }
+    }//GEN-LAST:event_botonRealizarVentaActionPerformed
+
+    private void botonCancelarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarVentaActionPerformed
+        if (productosVenta.isEmpty() == false) {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas cancelar la venta?");
+            if (opcion == JOptionPane.YES_OPTION) {
+                productosVenta.clear();
+            }
+        }
+    }//GEN-LAST:event_botonCancelarVentaActionPerformed
 
     private void actualizarDatosCliente() {
         if (cliente != null) {
-            textoNitCliente.setText("");
-            textoNombreCliente.setText(cliente.getNombre());
-            textoTelefonoCliente.setText(cliente.getTelefono());
-            textoDpiCliente.setText(cliente.getDpi());
-            textoDescuentoCliente.setText(String.valueOf(cliente.getDescuento()));
+            if (cliente.getNit_cliente().equals("000000000") == false) {
+                textoNitCliente.setText("");
+                textoNombreCliente.setText(cliente.getNombre());
+                textoTelefonoCliente.setText(cliente.getTelefono());
+                textoDpiCliente.setText(cliente.getDpi());
+                textoDescuentoCliente.setText(String.valueOf(cliente.getDescuento()));
+            } else {
+                cliente = null;
+            }
         } else {
             int opcion = JOptionPane.showConfirmDialog(null, "El cliente no se encuentra registrado en el sistema. ¿Deseas agregarlo?");
             if (opcion == JOptionPane.YES_OPTION) {
-                Datos_Cliente datos = new Datos_Cliente();
+                Datos_Cliente datos = new Datos_Cliente(textoNitCliente.getText());
                 datos.setVisible(true);
             }
         }
@@ -556,8 +613,10 @@ public class Vendedor extends javax.swing.JFrame {
     private javax.swing.JButton botonAumentar;
     private javax.swing.JButton botonBorrarCliente;
     private javax.swing.JButton botonBuscarCliente;
+    private javax.swing.JButton botonCancelarVenta;
     private javax.swing.JButton botonDisminuir;
     private javax.swing.JButton botonListado;
+    private javax.swing.JButton botonRealizarVenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

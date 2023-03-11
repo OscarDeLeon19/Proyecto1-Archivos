@@ -7,16 +7,24 @@ import javax.swing.table.DefaultTableModel;
 
 public class Lista_Productos extends javax.swing.JFrame {
 
-    ArrayList<Producto> productos;
-
+    private ArrayList<Producto> productos;
+    private int fila = -1;
+    
     public Lista_Productos(ArrayList<Producto> productos) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
         this.productos = productos;
+    }
+    
+    public void abrir(){
+        this.setVisible(true);
+        actualizar();
+    }
+    
+    public void actualizar(){   
         obtenerTotal();
         actualizarTablaProductos();
-
     }
 
     public void obtenerTotal() {
@@ -64,6 +72,7 @@ public class Lista_Productos extends javax.swing.JFrame {
         tabla1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         textoTotal = new javax.swing.JTextField();
+        botonBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lista de Productos");
@@ -81,6 +90,11 @@ public class Lista_Productos extends javax.swing.JFrame {
                 "Id_Nombre", "Nombre", "Fabricante", "Codigo", "Precio", "Cantidad"
             }
         ));
+        tabla1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabla1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabla1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -89,25 +103,34 @@ public class Lista_Productos extends javax.swing.JFrame {
         textoTotal.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         textoTotal.setEnabled(false);
 
+        botonBorrar.setText("Borrar Producto");
+        botonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBorrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(215, 215, 215)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(textoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148))))
+                        .addGap(46, 46, 46)
+                        .addComponent(botonBorrar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,15 +142,30 @@ public class Lista_Productos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(textoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                    .addComponent(textoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonBorrar))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
+        fila = tabla1.getSelectedRow();
+    }//GEN-LAST:event_tabla1MouseClicked
+
+    private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
+        if (fila != -1) {
+            productos.remove(fila);
+        }
+        actualizarTablaProductos();
+        obtenerTotal();
+        fila = -1;
+    }//GEN-LAST:event_botonBorrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonBorrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
