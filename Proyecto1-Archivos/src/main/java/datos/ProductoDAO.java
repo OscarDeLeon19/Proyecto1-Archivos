@@ -67,6 +67,41 @@ public class ProductoDAO {
         return productos;
     }
 
+    public ArrayList<Producto> listarProductosPorNombre(int id_tienda, String texto) {
+        ArrayList<Producto> productos = new ArrayList<>();
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM ControlEmpresa.Producto WHERE nombre ILIKE '%"+texto+"%' AND id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, id_tienda);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                Producto nuevo = new Producto();
+                nuevo.setId_producto(rs.getInt(1));
+                nuevo.setNombre(rs.getString(2));
+                nuevo.setFabricante(rs.getString(3));
+                nuevo.setCodigo(rs.getString(4));
+                nuevo.setPrecio(rs.getDouble(5));
+                nuevo.setCantidad(rs.getInt(6));
+                nuevo.setId_tienda(rs.getInt(7));
+                productos.add(nuevo);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+                rs.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return productos;
+    }
+    
     public Producto listarProductosPorId(int id_producto) {
         Producto producto = null;
         Connection con = Conexion.getConnection();

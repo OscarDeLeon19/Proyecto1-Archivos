@@ -122,6 +122,8 @@ public class Vendedor extends javax.swing.JFrame {
         botonRealizarVenta = new javax.swing.JButton();
         botonCancelarVenta = new javax.swing.JButton();
         botonActualizarCliente = new javax.swing.JButton();
+        textoBuscar = new javax.swing.JTextField();
+        botonBusqueda = new javax.swing.JButton();
 
         jLabel17.setText("jLabel17");
 
@@ -295,6 +297,13 @@ public class Vendedor extends javax.swing.JFrame {
             }
         });
 
+        botonBusqueda.setText("Buscar");
+        botonBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBusquedaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -305,11 +314,15 @@ public class Vendedor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelTienda)
                                 .addGap(125, 125, 125)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -415,7 +428,10 @@ public class Vendedor extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(labelTienda))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonBusqueda)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
@@ -591,6 +607,33 @@ public class Vendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonActualizarClienteActionPerformed
 
+    private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
+        String texto = textoBuscar.getText();
+        ArrayList<Producto> productos = productoDao.listarProductosPorNombre(empleado.getId_tienda(), texto);
+
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Id_producto");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Fabricante");
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Cantidad");
+
+        for (Producto producto : productos) {
+            String[] data = new String[6];
+            data[0] = String.valueOf(producto.getId_producto());
+            data[1] = producto.getNombre();
+            data[2] = producto.getFabricante();
+            data[3] = producto.getCodigo();
+            data[4] = String.valueOf(producto.getPrecio());
+            data[5] = String.valueOf(producto.getCantidad());
+            modelo.addRow(data);
+        }
+
+        tabla1.setModel(modelo);
+        tabla1.setEditingRow(2);
+    }//GEN-LAST:event_botonBusquedaActionPerformed
+
     public void limpiarDatosCliente() {
         textoNombreCliente.setText("Consumidor Final");
         textoTelefonoCliente.setText("--");
@@ -651,6 +694,7 @@ public class Vendedor extends javax.swing.JFrame {
     private javax.swing.JButton botonAumentar;
     private javax.swing.JButton botonBorrarCliente;
     private javax.swing.JButton botonBuscarCliente;
+    private javax.swing.JButton botonBusqueda;
     private javax.swing.JButton botonCancelarVenta;
     private javax.swing.JButton botonDisminuir;
     private javax.swing.JButton botonListado;
@@ -678,6 +722,7 @@ public class Vendedor extends javax.swing.JFrame {
     private javax.swing.JLabel labelTienda;
     private javax.swing.JLabel labelUser;
     private javax.swing.JTable tabla1;
+    private javax.swing.JTextField textoBuscar;
     private javax.swing.JTextField textoCantidad;
     private javax.swing.JTextField textoCodigo;
     private javax.swing.JTextField textoDescuentoCliente;
