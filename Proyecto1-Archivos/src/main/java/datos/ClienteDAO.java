@@ -74,8 +74,8 @@ public class ClienteDAO {
         }
         return resultado;
     }
-    
-    public boolean actualizarCliente(Cliente cliente){
+
+    public boolean actualizarCliente(Cliente cliente) {
         boolean resultado = true;
         Connection con = conexion.getConnection();
         PreparedStatement pr = null;
@@ -100,6 +100,35 @@ public class ClienteDAO {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
             }
         }
+        return resultado;
+    }
+
+    public void actualizarDescuento(int descuento, String nit_cliente, boolean hayDescuento) {
+        try {
+            Cliente cliente = listarClientePorNit(nit_cliente);
+            int descuentoActual = 0;
+            if (hayDescuento == false) {
+                descuentoActual = cliente.getDescuento();
+            }
+            cliente.setDescuento(descuentoActual + descuento);
+            actualizarDescuentoCliente(cliente);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar el descuento del cliente: " + e);
+        }
+
+    }
+
+    public boolean actualizarDescuentoCliente(Cliente cliente) throws SQLException {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "UPDATE ControlPersonal.Cliente SET descuento = ? WHERE nit_cliente = ?";
+        pr = con.prepareStatement(query);
+        pr.setInt(1, cliente.getDescuento());
+        pr.setString(2, cliente.getNit_cliente());
+        pr.executeUpdate();
+        con.close();
+        pr.close();
         return resultado;
     }
 }

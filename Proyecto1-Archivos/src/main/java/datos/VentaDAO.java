@@ -1,15 +1,48 @@
 package datos;
 
+import conexion.Conexion;
 import entidades.Cliente;
 import entidades.Empleado;
 import entidades.Producto;
 import entidades.Tienda;
 import entidades.Venta;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class VentaDAO {
+
+    public boolean ingresarVenta(Venta venta) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "INSERT INTO ControlVentas.Venta (fecha, id_empleado, id_producto, cantidad, total, nit_cliente, id_tienda) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setDate(1, venta.getFecha());
+            pr.setInt(2, venta.getId_empleado());
+            pr.setInt(3, venta.getId_producto());
+            pr.setInt(4, venta.getCantidad());
+            pr.setDouble(5, venta.getTotal());
+            pr.setString(6, venta.getNit_cliente());
+            pr.setInt(7, venta.getId_tienda());
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al ingresar venta: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
 
     public void realizarVenta(ArrayList<Producto> productos, Cliente cliente, Empleado empleado, Tienda tienda) {
         double total = obtenerTotal(productos);
@@ -45,8 +78,32 @@ public class VentaDAO {
             }
             venta.setNit_cliente(cliente.getNit_cliente());
             venta.setId_tienda(tienda.getId_tienda());
-            System.out.println(venta.toString());
+            ingresarVenta(venta);
+            descontarExistencias(venta);
         }
+        JOptionPane.showMessageDialog(null, "Venta registrada correctamente");
+        if (!cliente.getNit_cliente().equals("000000000")) {
+            int descuentoGanado = 0;
+            if (total >= 1000 && total < 5000) {
+                descuentoGanado = 2;
+            } else if (total >= 5000 && total < 10000) {
+                descuentoGanado = 5;
+            } else if (total >= 10000) {
+                descuentoGanado = 10;
+            }
+            ClienteDAO clienteDao = new ClienteDAO();
+            clienteDao.actualizarDescuento(descuentoGanado, cliente.getNit_cliente(), hayDescuento);
+        }
+    }
+
+    public void descontarExistencias(Venta venta) {
+        ProductoDAO productoDao = new ProductoDAO();
+        Producto producto = productoDao.listarProductosPorId(venta.getId_producto());
+        int existencias = producto.getCantidad();
+        int existenciasVenta = venta.getCantidad();
+        int resultado = existencias - existenciasVenta;
+        producto.setCantidad(resultado);
+        productoDao.actualizarExistencias(producto);
     }
 
     public double obtenerTotal(ArrayList<Producto> productos) {

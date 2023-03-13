@@ -8,14 +8,36 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
 
-    Conexion conexion = new Conexion();
+    public boolean actualizarExistencias(Producto producto) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "UPDATE ControlEmpresa.Producto SET cantidad = ? WHERE id_producto = ?";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, producto.getCantidad());
+            pr.setInt(2, producto.getId_producto());
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al actualizar cliente: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
 
     public ArrayList<Producto> listarProductosPorTienda(int id_tienda) {
         ArrayList<Producto> productos = new ArrayList<>();
-        Connection con = conexion.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? ORDER BY id_producto ASC;";
+        String query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
         try {
             pr = con.prepareStatement(query);
             pr.setInt(1, id_tienda);
@@ -44,10 +66,10 @@ public class ProductoDAO {
         }
         return productos;
     }
-    
+
     public Producto listarProductosPorId(int id_producto) {
         Producto producto = null;
-        Connection con = conexion.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Producto WHERE id_producto = ?;";

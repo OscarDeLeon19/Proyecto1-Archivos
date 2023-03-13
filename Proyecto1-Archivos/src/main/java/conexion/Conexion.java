@@ -6,11 +6,11 @@ import javax.swing.JOptionPane;
 
 public class Conexion {
 
-    private final String USER = "postgres";
-    private final String PASSWORD = "af5435269xdB";
-    private final String PATH = "jdbc:postgresql://localhost:5432/proyecto1_archivos";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "af5435269xdB";
+    private static final String PATH = "jdbc:postgresql://localhost:5432/proyecto1_archivos";
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         Connection conexion = null;
         try {
             Class.forName("org.postgresql.Driver");
