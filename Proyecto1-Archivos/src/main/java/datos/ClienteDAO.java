@@ -13,7 +13,7 @@ public class ClienteDAO {
 
     Conexion conexion = new Conexion();
 
-    public Cliente listarClientePorCodigo(String nit_cliente) {
+    public Cliente listarClientePorNit(String nit_cliente) {
         Cliente cliente = null;
         Connection con = conexion.getConnection();
         PreparedStatement pr = null;
@@ -59,8 +59,7 @@ public class ClienteDAO {
             pr.setString(4, cliente.getTelefono());
             pr.setString(5, cliente.getDpi());
             pr.setInt(6, 0);
-            int u = pr.executeUpdate();
-            System.out.println("U: " + u);
+            pr.executeUpdate();
             JOptionPane.showMessageDialog(null, "Cliente registrado correctamente");
         } catch (SQLException e) {
             resultado = false;
@@ -73,7 +72,34 @@ public class ClienteDAO {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
             }
         }
-        System.out.println("resut: " + resultado);    
+        return resultado;
+    }
+    
+    public boolean actualizarCliente(Cliente cliente){
+        boolean resultado = true;
+        Connection con = conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "UPDATE ControlPersonal.Cliente SET nombre = ?, correo = ?, telefono = ?, dpi = ? WHERE nit_cliente = ?";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setString(1, cliente.getNombre());
+            pr.setString(2, cliente.getCorreo());
+            pr.setString(3, cliente.getTelefono());
+            pr.setString(4, cliente.getDpi());
+            pr.setString(5, cliente.getNit_cliente());
+            pr.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cliente actualizado correctamente");
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al actualizar cliente: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
         return resultado;
     }
 }

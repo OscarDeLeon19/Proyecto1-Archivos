@@ -125,6 +125,7 @@
                                                   <Component id="textoDpiCliente" max="32767" attributes="0"/>
                                                   <Component id="textoDescuentoCliente" max="32767" attributes="0"/>
                                                   <Component id="botonBorrarCliente" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
+                                                  <Component id="botonActualizarCliente" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
@@ -147,15 +148,15 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="botonRealizarVenta" min="-2" pref="119" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                              <Component id="botonCancelarVenta" max="32767" attributes="0"/>
-                                          </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="botonAgregar" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Component id="botonListado" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="botonRealizarVenta" min="-2" pref="119" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="botonCancelarVenta" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -252,13 +253,15 @@
                   <Component id="jLabel18" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textoDescuentoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="botonBorrarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botonActualizarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonRealizarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonCancelarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="botonBorrarCliente" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="21" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -586,6 +589,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonCancelarVentaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="botonActualizarCliente">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Actualizar Cliente"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizarClienteActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

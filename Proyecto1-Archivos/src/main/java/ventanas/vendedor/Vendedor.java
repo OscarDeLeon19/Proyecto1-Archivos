@@ -15,6 +15,7 @@ import entidades.Producto;
 import entidades.Tienda;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Vendedor extends javax.swing.JFrame {
@@ -120,6 +121,7 @@ public class Vendedor extends javax.swing.JFrame {
         botonBorrarCliente = new javax.swing.JButton();
         botonRealizarVenta = new javax.swing.JButton();
         botonCancelarVenta = new javax.swing.JButton();
+        botonActualizarCliente = new javax.swing.JButton();
 
         jLabel17.setText("jLabel17");
 
@@ -286,6 +288,13 @@ public class Vendedor extends javax.swing.JFrame {
             }
         });
 
+        botonActualizarCliente.setText("Actualizar Cliente");
+        botonActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -366,7 +375,8 @@ public class Vendedor extends javax.swing.JFrame {
                                                     .addComponent(textoTelefonoCliente)
                                                     .addComponent(textoDpiCliente)
                                                     .addComponent(textoDescuentoCliente)
-                                                    .addComponent(botonBorrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addComponent(botonBorrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(botonActualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 0, Short.MAX_VALUE))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,13 +393,13 @@ public class Vendedor extends javax.swing.JFrame {
                                         .addGap(31, 31, 31)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(botonRealizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(10, 10, 10)
-                                                .addComponent(botonCancelarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
                                                 .addComponent(botonAgregar)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(botonListado)))))
+                                                .addComponent(botonListado))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(botonRealizarVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(botonCancelarVenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                                 .addGap(331, 331, 331)))
                         .addContainerGap())))
         );
@@ -460,12 +470,14 @@ public class Vendedor extends javax.swing.JFrame {
                     .addComponent(botonListado)
                     .addComponent(jLabel18)
                     .addComponent(textoDescuentoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonBorrarCliente)
+                    .addComponent(botonActualizarCliente)
                     .addComponent(botonRealizarVenta)
                     .addComponent(botonCancelarVenta))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonBorrarCliente)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -528,7 +540,7 @@ public class Vendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_botonListadoActionPerformed
 
     private void botonBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarClienteActionPerformed
-        cliente = clienteDao.listarClientePorCodigo(textoNitCliente.getText());
+        cliente = clienteDao.listarClientePorNit(textoNitCliente.getText());
         actualizarDatosCliente();
 
     }//GEN-LAST:event_botonBuscarClienteActionPerformed
@@ -546,7 +558,7 @@ public class Vendedor extends javax.swing.JFrame {
             VentaDAO ventaDao = new VentaDAO();
             double total = ventaDao.obtenerTotal(productosVenta);
             if (cliente == null) {
-                cliente = clienteDao.listarClientePorCodigo("000000000");
+                cliente = clienteDao.listarClientePorNit("000000000");
             }
             int opcion = JOptionPane.showConfirmDialog(null, "El total de la compra es de: " + total + ". Nombre del cliente: " + cliente.getNombre() + ". ¿Confirmar compra?");
             if (opcion == JOptionPane.YES_OPTION) {
@@ -566,6 +578,19 @@ public class Vendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonCancelarVentaActionPerformed
 
+    private void botonActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarClienteActionPerformed
+        if (cliente != null) {
+            JTextField textos[] = new JTextField[3];
+            textos[0] = textoNombreCliente;
+            textos[1] = textoTelefonoCliente;
+            textos[2] = textoDpiCliente;
+            Datos_Cliente datos = new Datos_Cliente(cliente.getNit_cliente(), true, textos);
+            datos.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay un cliente en el sistema aun");
+        }
+    }//GEN-LAST:event_botonActualizarClienteActionPerformed
+
     private void actualizarDatosCliente() {
         if (cliente != null) {
             if (cliente.getNit_cliente().equals("000000000") == false) {
@@ -580,7 +605,11 @@ public class Vendedor extends javax.swing.JFrame {
         } else {
             int opcion = JOptionPane.showConfirmDialog(null, "El cliente no se encuentra registrado en el sistema. ¿Deseas agregarlo?");
             if (opcion == JOptionPane.YES_OPTION) {
-                Datos_Cliente datos = new Datos_Cliente(textoNitCliente.getText());
+                JTextField textos[] = new JTextField[3];
+                textos[0] = textoNombreCliente;
+                textos[1] = textoTelefonoCliente;
+                textos[2] = textoDpiCliente;
+                Datos_Cliente datos = new Datos_Cliente(textoNitCliente.getText(), false, textos);
                 datos.setVisible(true);
             }
         }
@@ -609,6 +638,7 @@ public class Vendedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizarCliente;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonAumentar;
     private javax.swing.JButton botonBorrarCliente;

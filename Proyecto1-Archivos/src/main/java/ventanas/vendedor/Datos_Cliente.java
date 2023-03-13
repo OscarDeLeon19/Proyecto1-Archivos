@@ -7,6 +7,8 @@ package ventanas.vendedor;
 
 import datos.ClienteDAO;
 import entidades.Cliente;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -14,13 +16,23 @@ import entidades.Cliente;
  */
 public class Datos_Cliente extends javax.swing.JFrame {
 
-    ClienteDAO clienteDao = new ClienteDAO();
+    private ClienteDAO clienteDao = new ClienteDAO();
+    private JTextField textos[];
 
-    public Datos_Cliente(String nit) {
+    public Datos_Cliente(String nit, boolean actualizacion, JTextField textos[]) {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
         textoNit.setText(nit);
+        this.textos = textos;
+        if (actualizacion == false) {
+            botonActualizarCliente.setEnabled(false);
+            botonRegistrarCliente.setEnabled(true);
+        } else {
+            botonActualizarCliente.setEnabled(true);
+            botonRegistrarCliente.setEnabled(false);
+            obtenerDatosCliente();
+        }
     }
 
     /**
@@ -44,6 +56,7 @@ public class Datos_Cliente extends javax.swing.JFrame {
         botonRegistrarCliente = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         textoNombre = new javax.swing.JTextField();
+        botonActualizarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Datos del Cliente");
@@ -71,6 +84,13 @@ public class Datos_Cliente extends javax.swing.JFrame {
 
         jLabel6.setText("Nombre: ");
 
+        botonActualizarCliente.setText("Actualizar Cliente");
+        botonActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,30 +102,32 @@ public class Datos_Cliente extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addComponent(textoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textoNit, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(textoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(textoDpi, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botonRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoNit, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textoDpi, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(textoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(44, 44, 44)
+                                .addComponent(botonRegistrarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonActualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -134,12 +156,27 @@ public class Datos_Cliente extends javax.swing.JFrame {
                     .addComponent(textoDpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addComponent(botonRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonRegistrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+                    .addComponent(botonActualizarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    public void obtenerDatosCliente() {
+        try {
+            String nit = textoNit.getText();
+            Cliente cliente = clienteDao.listarClientePorNit(nit);
+            textoNombre.setText(cliente.getNombre());
+            textoCorreo.setText(cliente.getCorreo());
+            textoTelefono.setText(cliente.getTelefono());
+            textoDpi.setText(cliente.getDpi());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se encontro el cliente en el sistema. " + e);
+        }
+    }
 
     private void botonRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarClienteActionPerformed
         String nit = textoNit.getText();
@@ -170,8 +207,41 @@ public class Datos_Cliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonRegistrarClienteActionPerformed
 
+    private void botonActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarClienteActionPerformed
+        String nit = textoNit.getText();
+        if (nit.equals("")) {
+            nit = null;
+        }
+        String nombre = textoNombre.getText();
+        if (nombre.equals("")) {
+            nombre = null;
+        }
+        String correo = textoCorreo.getText();
+        if (correo.equals("")) {
+            correo = null;
+        }
+        String telefono = textoTelefono.getText();
+        if (telefono.equals("")) {
+            telefono = null;
+        }
+        String dpi = textoDpi.getText();
+        if (dpi.equals("")) {
+            dpi = null;
+        }
+
+        Cliente cliente = new Cliente(nit, nombre, correo, telefono, dpi, 0);
+        boolean resultado = clienteDao.actualizarCliente(cliente);
+        if (resultado == true) {
+            textos[0].setText(cliente.getNombre());
+            textos[1].setText(cliente.getTelefono());
+            textos[2].setText(cliente.getDpi());
+            dispose();
+        }
+    }//GEN-LAST:event_botonActualizarClienteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonActualizarCliente;
     private javax.swing.JButton botonRegistrarCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
