@@ -8,6 +8,70 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
 
+    public boolean insertarProducto(Producto producto) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "INSERT INTO ControlEmpresa.Producto (nombre, fabricante, codigo, precio, cantidad, id_tienda) VALUES (?, ?, ?, ?, ?, ?);";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setString(1, producto.getNombre());
+            pr.setString(2, producto.getFabricante());
+            pr.setString(3, producto.getCodigo());
+            pr.setDouble(4, producto.getPrecio());
+            pr.setInt(5, producto.getCantidad());
+            pr.setInt(6, producto.getId_tienda());
+            pr.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Producto registrado correctamente");
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al ingresar producto: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
+
+    public Producto listarProductosPorCodigo(String codigo, int id_tienda) {
+        Producto producto = null;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT * FROM ControlEmpresa.Producto WHERE codigo = ? AND id_tienda = ?;";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setString(1, codigo);
+            pr.setInt(2, id_tienda);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setId_producto(rs.getInt(1));
+                producto.setNombre(rs.getString(2));
+                producto.setFabricante(rs.getString(3));
+                producto.setCodigo(rs.getString(4));
+                producto.setPrecio(rs.getDouble(5));
+                producto.setCantidad(rs.getInt(6));
+                producto.setId_tienda(rs.getInt(7));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+                rs.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return producto;
+    }
+
     public ArrayList<Producto> listarProductosDeOtraTienda(int id_tienda) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();

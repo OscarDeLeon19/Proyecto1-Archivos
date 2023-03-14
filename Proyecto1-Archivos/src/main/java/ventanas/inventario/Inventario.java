@@ -22,6 +22,7 @@ public class Inventario extends javax.swing.JFrame {
     private Tienda tienda;
     private Producto productoSeleccionado;
     private ArrayList<Producto> productosIngreso = new ArrayList<>();
+    Lista_Productos lista = new Lista_Productos(productosIngreso);
 
     public Inventario(Empleado empleado) {
         initComponents();
@@ -68,6 +69,9 @@ public class Inventario extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla2 = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
+        botonListado = new javax.swing.JButton();
+        botonTransferir = new javax.swing.JButton();
+        botonBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -139,7 +143,7 @@ public class Inventario extends javax.swing.JFrame {
             }
         });
 
-        botonAgregar.setText("Agregar a la Venta");
+        botonAgregar.setText("Agregar a la lista");
         botonAgregar.setEnabled(false);
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +200,27 @@ public class Inventario extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel11.setText("Productos en Tienda");
 
+        botonListado.setText("Listado de Productos");
+        botonListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListadoActionPerformed(evt);
+            }
+        });
+
+        botonTransferir.setText("Transferir Productos");
+        botonTransferir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTransferirActionPerformed(evt);
+            }
+        });
+
+        botonBorrar.setText("Borrar Lista");
+        botonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBorrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -225,17 +250,6 @@ public class Inventario extends javax.swing.JFrame {
                                 .addGap(81, 81, 81)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addGap(28, 28, 28)
-                                        .addComponent(textoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(botonAumentar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(botonDisminuir))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(botonAgregar))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
@@ -261,10 +275,28 @@ public class Inventario extends javax.swing.JFrame {
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                             .addComponent(jLabel5)
-                                                            .addComponent(textoFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                                                            .addComponent(textoFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(textoCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(botonAumentar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(botonDisminuir))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(botonAgregar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(botonListado))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(botonTransferir)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,10 +348,16 @@ public class Inventario extends javax.swing.JFrame {
                             .addComponent(botonAumentar)
                             .addComponent(botonDisminuir))
                         .addGap(32, 32, 32)
-                        .addComponent(botonAgregar)))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botonAgregar)
+                            .addComponent(botonListado))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonTransferir)
+                        .addComponent(botonBorrar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -403,7 +441,58 @@ public class Inventario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Producto Agregado a la lista");
         }
         limpiarDatos();
+        lista.actualizarTablaProductos();
     }//GEN-LAST:event_botonAgregarActionPerformed
+
+    private void botonListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoActionPerformed
+        lista.abrir();
+    }//GEN-LAST:event_botonListadoActionPerformed
+
+    private void botonTransferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTransferirActionPerformed
+        if (productosIngreso.size() > 0) {
+            for (Producto producto : productosIngreso) {
+                Producto existencia = productoDao.listarProductosPorCodigo(producto.getCodigo(), tienda.getId_tienda());
+                if (existencia == null) {
+                    Producto nuevoProducto = new Producto();
+                    nuevoProducto.setNombre(producto.getNombre());
+                    nuevoProducto.setFabricante(producto.getFabricante());
+                    nuevoProducto.setCodigo(producto.getCodigo());
+                    nuevoProducto.setPrecio(producto.getPrecio());
+                    nuevoProducto.setCantidad(producto.getCantidad());
+                    nuevoProducto.setId_tienda(tienda.getId_tienda());
+                    productoDao.insertarProducto(nuevoProducto);
+                    Producto pr = productoDao.listarProductosPorId(producto.getId_producto());
+                    int existenciasActuales = pr.getCantidad();
+                    int nuevasExistencias = producto.getCantidad();
+                    int resta = existenciasActuales - nuevasExistencias;
+                    pr.setCantidad(resta);
+                    productoDao.actualizarExistencias(pr);                 
+                    JOptionPane.showMessageDialog(null, "Transferencia de productos realizada correctamente");
+                } else {
+                    int existenciasActuales = existencia.getCantidad();
+                    int nuevasExistencias = producto.getCantidad();
+                    int sumatoria = existenciasActuales + nuevasExistencias;
+                    existencia.setCantidad(sumatoria);
+                    productoDao.actualizarExistencias(existencia);
+                    Producto pr = productoDao.listarProductosPorId(producto.getId_producto());
+                    int existenciasActuales2 = pr.getCantidad();
+                    int resta = existenciasActuales2 - nuevasExistencias;
+                    pr.setCantidad(resta);
+                    productoDao.actualizarExistencias(pr);
+                    JOptionPane.showMessageDialog(null, "Transferencia de productos realizada correctamente");
+                }
+            }
+            actualizarTablaActual();
+            actualizarTablaProductos();
+            productosIngreso.clear();
+            lista.actualizarTablaProductos();
+        }
+    }//GEN-LAST:event_botonTransferirActionPerformed
+
+    private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
+        productosIngreso.clear();
+        lista.actualizarTablaProductos();
+    }//GEN-LAST:event_botonBorrarActionPerformed
 
     public void actualizarTablaProductos() {
         ArrayList<Producto> productos = productoDao.listarProductosDeOtraTienda(empleado.getId_tienda());
@@ -431,8 +520,8 @@ public class Inventario extends javax.swing.JFrame {
 
         tabla1.setModel(modelo);
     }
-    
-    public void actualizarTablaActual(){
+
+    public void actualizarTablaActual() {
         ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), true);
 
         DefaultTableModel modelo = new DefaultTableModel();
@@ -456,7 +545,7 @@ public class Inventario extends javax.swing.JFrame {
 
         tabla2.setModel(modelo);
     }
-    
+
     private void actualizarProductoSeleccionado() {
         textoNombre.setText(productoSeleccionado.getNombre());
         textoFabricante.setText(productoSeleccionado.getFabricante());
@@ -478,12 +567,15 @@ public class Inventario extends javax.swing.JFrame {
         botonDisminuir.setEnabled(false);
         botonAgregar.setEnabled(false);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonAumentar;
+    private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonBusqueda;
     private javax.swing.JButton botonDisminuir;
+    private javax.swing.JButton botonListado;
+    private javax.swing.JButton botonTransferir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
