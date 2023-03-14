@@ -6,11 +6,16 @@ import java.sql.*;
 
 public class EmpleadoDAO {
 
-    Conexion conexion = new Conexion();
-
+    /**
+     * Obtiene los datos del empleado que ingresa al sistema.
+     * @param username Username del usuario
+     * @param password Contraseña del usuario
+     * @return Los datos del empleado
+     * @throws SQLException Error que puede surgir en la base de datos
+     */
     public Empleado obtenerEmpleadoLogin(String username, String password) throws SQLException {
         Empleado empleado = null;
-        Connection con = conexion.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement pr;
         ResultSet rs;
         String query = "SELECT * FROM ControlPersonal.Empleado WHERE username = ? AND password = ?;";
@@ -29,7 +34,7 @@ public class EmpleadoDAO {
             empleado.setUsername(rs.getString(7));
             empleado.setPassword(rs.getString(8));
         }
-        
+
         con.close();
         pr.close();
         rs.close();

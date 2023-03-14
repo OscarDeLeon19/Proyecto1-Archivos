@@ -13,11 +13,14 @@ import javax.swing.JOptionPane;
 
 public class TiendaDAO {
     
-    Conexion conexion = new Conexion();
-    
+    /**
+     * Lista una tienda de la base de datos segun su codigo
+     * @param id_tienda El identificador de la tienda
+     * @return La tienda de la base de datos.
+     */
     public Tienda listarTiendaPorCodigo(int id_tienda){
         Tienda tienda = null;
-        Connection con = conexion.getConnection();
+        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Tienda WHERE id_tienda = ?;";

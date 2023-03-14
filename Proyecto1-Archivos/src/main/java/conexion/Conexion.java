@@ -10,6 +10,10 @@ public class Conexion {
     private static final String PASSWORD = "af5435269xdB";
     private static final String PATH = "jdbc:postgresql://localhost:5432/proyecto1_archivos";
 
+    /**
+     * Crea la conexion con la base de Datos
+     * @return La conexion con la base de datos.
+     */
     public static Connection getConnection() {
         Connection conexion = null;
         try {

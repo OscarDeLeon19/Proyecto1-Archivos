@@ -15,7 +15,12 @@ import javax.swing.JOptionPane;
 
 public class VentaDAO {
 
-    public boolean ingresarVenta(Venta venta) {
+    /**
+     * Inserta una venta en la base de datos
+     * @param venta La venta que se insertará
+     * @return Un boolean que indica si la operacion fue exitosa.
+     */
+    public boolean insertarVenta(Venta venta) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
@@ -44,6 +49,14 @@ public class VentaDAO {
         return resultado;
     }
 
+    /**
+     * Registra una venta de la aplicacion. Manda a ingresar las ventas a la base de datos.
+     * Comprueba si un cliente desea utilizar su descuento.
+     * @param productos Los productos que se compraron
+     * @param cliente El cliente que compro los productos
+     * @param empleado El empleado que registrará la venta
+     * @param tienda La tienda en donde se realiza la venta
+     */
     public void realizarVenta(ArrayList<Producto> productos, Cliente cliente, Empleado empleado, Tienda tienda) {
         double total = obtenerTotal(productos);
         boolean hayDescuento = false;
@@ -78,7 +91,7 @@ public class VentaDAO {
             }
             venta.setNit_cliente(cliente.getNit_cliente());
             venta.setId_tienda(tienda.getId_tienda());
-            ingresarVenta(venta);
+            insertarVenta(venta);
             descontarExistencias(venta);
         }
         JOptionPane.showMessageDialog(null, "Venta registrada correctamente");
@@ -96,6 +109,10 @@ public class VentaDAO {
         }
     }
 
+    /**
+     * Descuenta las existencias vendidas de la base de datos.
+     * @param venta La venta que se realizo
+     */
     public void descontarExistencias(Venta venta) {
         ProductoDAO productoDao = new ProductoDAO();
         Producto producto = productoDao.listarProductosPorId(venta.getId_producto());
@@ -106,6 +123,11 @@ public class VentaDAO {
         productoDao.actualizarExistencias(producto);
     }
 
+    /**
+     * Obtiene el total de los productos vendidos
+     * @param productos Los productos que se vendieron
+     * @return El total de la venta
+     */
     public double obtenerTotal(ArrayList<Producto> productos) {
         double total = 0;
         for (Producto producto : productos) {

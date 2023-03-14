@@ -8,6 +8,11 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
 
+    /**
+     * Actualiza las existencias de un producto en la base de datos posteriormente a la realizacion de una venta
+     * @param producto El producto al que se le actualizaran las existencias
+     * @return Un boolean que indica si la operacion fue exitosa.
+     */
     public boolean actualizarExistencias(Producto producto) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -32,6 +37,11 @@ public class ProductoDAO {
         return resultado;
     }
 
+    /**
+     * Lista todos los productos que se encuentran en una tienda
+     * @param id_tienda El id de la tienda actual
+     * @return La lista de productos de la tienda
+     */
     public ArrayList<Producto> listarProductosPorTienda(int id_tienda) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();
@@ -67,12 +77,18 @@ public class ProductoDAO {
         return productos;
     }
 
-    public ArrayList<Producto> listarProductosPorNombre(int id_tienda, String texto) {
+    /**
+     * Lista los productos segun un nombre
+     * @param id_tienda El identificador de la tienda
+     * @param nombre El nombre del producto
+     * @return La lista de productos encontrados
+     */
+    public ArrayList<Producto> listarProductosPorNombre(int id_tienda, String nombre) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM ControlEmpresa.Producto WHERE nombre ILIKE '%"+texto+"%' AND id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
+        String query = "SELECT * FROM ControlEmpresa.Producto WHERE nombre ILIKE '%"+nombre+"%' AND id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
         try {
             pr = con.prepareStatement(query);
             pr.setInt(1, id_tienda);
@@ -102,6 +118,11 @@ public class ProductoDAO {
         return productos;
     }
     
+    /**
+     * Lista un producto segun su identificador
+     * @param id_producto El identificador del producto
+     * @return El producto obtenido
+     */
     public Producto listarProductosPorId(int id_producto) {
         Producto producto = null;
         Connection con = Conexion.getConnection();
