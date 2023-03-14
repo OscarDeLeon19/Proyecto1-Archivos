@@ -39,14 +39,14 @@ public class Vendedor extends javax.swing.JFrame {
         labelUser.setText(empleado.getNombre());
         labelRol.setText(empleado.getRol());
         labelTienda.setText(tienda.getNombre());
-        actualizarTablaProductos();
         botonAumentar.setEnabled(false);
         botonDisminuir.setEnabled(false);
+        actualizarTablaProductos();
 
     }
 
     public void actualizarTablaProductos() {
-        ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda());
+        ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), false);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_producto");

@@ -8,8 +8,88 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
 
+    public ArrayList<Producto> listarProductosDeOtraTienda(int id_tienda) {
+        ArrayList<Producto> productos = new ArrayList<>();
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT p.id_producto, p.nombre, p.fabricante, p.codigo, p.precio, p.cantidad, t.nombre as Tienda \n"
+                + "	FROM ControlEmpresa.Producto p\n"
+                + "	JOIN ControlEmpresa.Tienda t ON p.id_tienda = t.id_tienda \n"
+                + "	WHERE p.id_tienda != ? AND p.cantidad > 0\n"
+                + "	ORDER BY p.id_producto ASC;";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, id_tienda);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                Producto nuevo = new Producto();
+                nuevo.setId_producto(rs.getInt(1));
+                nuevo.setNombre(rs.getString(2));
+                nuevo.setFabricante(rs.getString(3));
+                nuevo.setCodigo(rs.getString(4));
+                nuevo.setPrecio(rs.getDouble(5));
+                nuevo.setCantidad(rs.getInt(6));
+                nuevo.setNombreTienda(rs.getString(7));
+                productos.add(nuevo);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+                rs.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return productos;
+    }
+
+    public ArrayList<Producto> listarProductosPorNombreInventario(int id_tienda, String nombre) {
+        ArrayList<Producto> productos = new ArrayList<>();
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT p.id_producto, p.nombre, p.fabricante, p.codigo, p.precio, p.cantidad, t.nombre as Tienda \n"
+                + "	FROM ControlEmpresa.Producto p\n"
+                + "	JOIN ControlEmpresa.Tienda t ON p.id_tienda = t.id_tienda \n"
+                + "	WHERE p.nombre ILIKE '%" + nombre + "%' AND p.id_tienda != ? AND p.cantidad > 0\n"
+                + "	ORDER BY p.id_producto ASC;";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, id_tienda);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                Producto nuevo = new Producto();
+                nuevo.setId_producto(rs.getInt(1));
+                nuevo.setNombre(rs.getString(2));
+                nuevo.setFabricante(rs.getString(3));
+                nuevo.setCodigo(rs.getString(4));
+                nuevo.setPrecio(rs.getDouble(5));
+                nuevo.setCantidad(rs.getInt(6));
+                nuevo.setNombreTienda(rs.getString(7));
+                productos.add(nuevo);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+                rs.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return productos;
+    }
+
     /**
-     * Actualiza las existencias de un producto en la base de datos posteriormente a la realizacion de una venta
+     * Actualiza las existencias de un producto en la base de datos
+     * posteriormente a la realizacion de una venta
+     *
      * @param producto El producto al que se le actualizaran las existencias
      * @return Un boolean que indica si la operacion fue exitosa.
      */
@@ -39,15 +119,21 @@ public class ProductoDAO {
 
     /**
      * Lista todos los productos que se encuentran en una tienda
+     *
      * @param id_tienda El id de la tienda actual
      * @return La lista de productos de la tienda
      */
-    public ArrayList<Producto> listarProductosPorTienda(int id_tienda) {
+    public ArrayList<Producto> listarProductosPorTienda(int id_tienda, boolean inventario) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
+        String query = "";
+        if (inventario == true) {
+            query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? ORDER BY id_producto ASC;";
+        } else {
+            query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
+        }
         try {
             pr = con.prepareStatement(query);
             pr.setInt(1, id_tienda);
@@ -79,6 +165,7 @@ public class ProductoDAO {
 
     /**
      * Lista los productos segun un nombre
+     *
      * @param id_tienda El identificador de la tienda
      * @param nombre El nombre del producto
      * @return La lista de productos encontrados
@@ -88,7 +175,7 @@ public class ProductoDAO {
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
-        String query = "SELECT * FROM ControlEmpresa.Producto WHERE nombre ILIKE '%"+nombre+"%' AND id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
+        String query = "SELECT * FROM ControlEmpresa.Producto WHERE nombre ILIKE '%" + nombre + "%' AND id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
         try {
             pr = con.prepareStatement(query);
             pr.setInt(1, id_tienda);
@@ -117,9 +204,10 @@ public class ProductoDAO {
         }
         return productos;
     }
-    
+
     /**
      * Lista un producto segun su identificador
+     *
      * @param id_producto El identificador del producto
      * @return El producto obtenido
      */

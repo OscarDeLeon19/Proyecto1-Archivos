@@ -11,6 +11,7 @@ public class Producto {
     private double precio;
     private int cantidad;
     private int id_tienda;
+    private String nombreTienda;
 
     public Producto(int id_producto, String nombre, String fabricante, String codigo, double precio, int cantidad, int id_tienda) {
         this.id_producto = id_producto;
@@ -81,6 +82,14 @@ public class Producto {
         this.id_tienda = id_tienda;
     }
 
+    public String getNombreTienda() {
+        return nombreTienda;
+    }
+
+    public void setNombreTienda(String nombreTienda) {
+        this.nombreTienda = nombreTienda;
+    }
+    
     @Override
     public String toString() {
         return "Producto{" + "id_producto=" + id_producto + ", nombre=" + nombre + ", fabricante=" + fabricante + ", codigo=" + codigo + ", precio=" + precio + ", cantidad=" + cantidad + ", id_tienda=" + id_tienda + '}';
