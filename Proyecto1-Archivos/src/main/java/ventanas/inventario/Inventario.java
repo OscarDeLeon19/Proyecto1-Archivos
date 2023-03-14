@@ -35,6 +35,7 @@ public class Inventario extends javax.swing.JFrame {
         labelTienda.setText(tienda.getNombre());
         actualizarTablaActual();
         actualizarTablaProductos();
+        botonAgregar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
