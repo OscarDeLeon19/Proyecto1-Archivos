@@ -10,6 +10,7 @@ public class Empleado {
     private int id_tienda;
     private String username;
     private String password;
+    private String nombre_tienda;
 
     public Empleado(int id_empleado, String nombre, String telefono, String rol, String dpi, int id_tienda, String username, String password) {
         this.id_empleado = id_empleado;
@@ -23,6 +24,14 @@ public class Empleado {
     }
 
     public Empleado() {
+    }
+
+    public String getNombre_tienda() {
+        return nombre_tienda;
+    }
+
+    public void setNombre_tienda(String nombre_tienda) {
+        this.nombre_tienda = nombre_tienda;
     }
 
     public int getId_empleado() {

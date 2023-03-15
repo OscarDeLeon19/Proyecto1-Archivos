@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import ventanas.administrador.Menu;
 import ventanas.bodega.Bodega;
 import ventanas.inventario.Inventario;
 
@@ -46,7 +47,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Id del Empleado: ");
 
-        textoId.setText("user13");
+        textoId.setText("user17");
 
         jLabel3.setText("Contraseña:");
 
@@ -122,6 +123,10 @@ public class Login extends javax.swing.JFrame {
                 } else if (empleado.getRol().equals("Bodega")){
                     Bodega bodega = new Bodega(empleado);
                     bodega.setVisible(true);
+                    dispose();
+                } else if (empleado.getRol().equals("Administrador")){
+                    Menu menu = new Menu(empleado);
+                    menu.setVisible(true);
                     dispose();
                 }
             } else {
