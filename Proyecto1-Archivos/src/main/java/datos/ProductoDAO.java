@@ -8,6 +8,57 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
 
+    public boolean eliminarProducto(Producto producto) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "DELETE FROM ControlEmpresa.Producto WHERE id_producto = ?";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, producto.getId_producto());
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al borrar producto: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
+
+    public boolean actualizarProducto(Producto producto) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "UPDATE ControlEmpresa.Producto SET nombre = ?, fabricante = ?, codigo = ?, precio = ?, cantidad = ? WHERE id_producto = ?";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setString(1, producto.getNombre());
+            pr.setString(2, producto.getFabricante());
+            pr.setString(3, producto.getCodigo());
+            pr.setDouble(4, producto.getPrecio());
+            pr.setInt(5, producto.getCantidad());
+            pr.setInt(6, producto.getId_producto());
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al actualizar producto: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
+
     public boolean insertarProducto(Producto producto) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -169,7 +220,7 @@ public class ProductoDAO {
             pr.executeUpdate();
         } catch (SQLException e) {
             resultado = false;
-            JOptionPane.showMessageDialog(null, "Error al actualizar cliente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar producto: " + e.getMessage());
         } finally {
             try {
                 con.close();

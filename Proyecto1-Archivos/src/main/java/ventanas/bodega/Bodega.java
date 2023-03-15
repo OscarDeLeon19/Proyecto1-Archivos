@@ -11,8 +11,8 @@ import entidades.Empleado;
 import entidades.Producto;
 import entidades.Tienda;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 public class Bodega extends javax.swing.JFrame {
 
@@ -21,7 +21,7 @@ public class Bodega extends javax.swing.JFrame {
     private Empleado empleado;
     private Producto productoSeleccionado;
     private Tienda tienda;
-    
+
     public Bodega(Empleado empleado) {
         initComponents();
         this.empleado = empleado;
@@ -33,7 +33,6 @@ public class Bodega extends javax.swing.JFrame {
         labelRol.setText(empleado.getRol());
         labelTienda.setText(tienda.getNombre());
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,7 +50,7 @@ public class Bodega extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         labelTienda = new javax.swing.JLabel();
         botonAgregar = new javax.swing.JButton();
-        botonProducto = new javax.swing.JButton();
+        botonModificar = new javax.swing.JButton();
         botonBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -109,12 +108,27 @@ public class Bodega extends javax.swing.JFrame {
         labelTienda.setText("tienda");
 
         botonAgregar.setText("Agregar Producto");
+        botonAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarActionPerformed(evt);
+            }
+        });
 
-        botonProducto.setText("Modificar Producto");
-        botonProducto.setEnabled(false);
+        botonModificar.setText("Modificar Producto");
+        botonModificar.setEnabled(false);
+        botonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModificarActionPerformed(evt);
+            }
+        });
 
         botonBorrar.setText("Borrar Producto");
         botonBorrar.setEnabled(false);
+        botonBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBorrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -150,7 +164,7 @@ public class Bodega extends javax.swing.JFrame {
                 .addGap(77, 77, 77)
                 .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -183,7 +197,7 @@ public class Bodega extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(botonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(50, 50, 50))
         );
 
@@ -221,8 +235,35 @@ public class Bodega extends javax.swing.JFrame {
         int Fila = tabla1.getSelectedRow();
         String id = tabla1.getValueAt(Fila, 0).toString();
         productoSeleccionado = productoDao.listarProductosPorId(Integer.parseInt(id));
-
+        botonModificar.setEnabled(true);
+        botonBorrar.setEnabled(true);
     }//GEN-LAST:event_tabla1MouseClicked
+
+    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
+        Datos_Producto datos = new Datos_Producto(null, false, this);
+        datos.setVisible(true);
+    }//GEN-LAST:event_botonAgregarActionPerformed
+
+    private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
+        Datos_Producto datos = new Datos_Producto(productoSeleccionado, true, this);
+        datos.setVisible(true);
+        botonModificar.setEnabled(true);
+    }//GEN-LAST:event_botonModificarActionPerformed
+
+    private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de borrar el producto: \n"
+                + "Nombre: " + productoSeleccionado.getNombre() + "\n"
+                + "Fabricante: " + productoSeleccionado.getFabricante() + "\n"
+                + "Codigo: " + productoSeleccionado.getCodigo());
+        if(opcion == JOptionPane.YES_OPTION){
+            boolean resultado = productoDao.eliminarProducto(productoSeleccionado);
+            if(resultado == true){
+                JOptionPane.showMessageDialog(null, "Producto eliminado");
+                eliminarProductoSeleccionado();
+                actualizarTabla();
+            }
+        }
+    }//GEN-LAST:event_botonBorrarActionPerformed
 
     public void actualizarTabla() {
         ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), true);
@@ -245,16 +286,21 @@ public class Bodega extends javax.swing.JFrame {
             data[5] = String.valueOf(producto.getCantidad());
             modelo.addRow(data);
         }
-
         tabla1.setModel(modelo);
     }
 
-    
+    public void eliminarProductoSeleccionado() {
+        productoSeleccionado = null;
+        botonModificar.setEnabled(false);
+        botonBorrar.setEnabled(false);
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonBusqueda;
-    private javax.swing.JButton botonProducto;
+    private javax.swing.JButton botonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
