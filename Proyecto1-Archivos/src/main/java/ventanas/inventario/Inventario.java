@@ -523,7 +523,7 @@ public class Inventario extends javax.swing.JFrame {
     }
 
     public void actualizarTablaActual() {
-        ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), true);
+        ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), true, 0);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_producto");

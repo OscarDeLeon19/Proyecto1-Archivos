@@ -238,16 +238,29 @@ public class ProductoDAO {
      * @param id_tienda El id de la tienda actual
      * @return La lista de productos de la tienda
      */
-    public ArrayList<Producto> listarProductosPorTienda(int id_tienda, boolean inventario) {
+    public ArrayList<Producto> listarProductosPorTienda(int id_tienda, boolean inventario, int orden) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "";
         if (inventario == true) {
-            query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? ORDER BY id_producto ASC;";
+            query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? ";
         } else {
-            query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
+            query = "SELECT * FROM ControlEmpresa.Producto WHERE id_tienda = ? AND cantidad > 0 ";
+        }
+        switch (orden) {
+            case 1:
+                query += "ORDER BY nombre ASC;";
+                break;
+            case 2:
+                query += "ORDER BY fabricante ASC;";
+                break;
+            case 3:
+                query += "ORDER BY precio ASC;";
+                break;
+            default:
+                query += "ORDER BY id_producto ASC;";
         }
         try {
             pr = con.prepareStatement(query);

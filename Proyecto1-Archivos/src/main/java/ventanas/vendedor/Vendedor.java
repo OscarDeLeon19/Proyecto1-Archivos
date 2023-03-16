@@ -46,7 +46,7 @@ public class Vendedor extends javax.swing.JFrame {
     }
 
     public void actualizarTablaProductos() {
-        ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), false);
+        ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), false, 0);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_producto");

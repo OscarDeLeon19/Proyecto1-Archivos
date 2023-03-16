@@ -169,7 +169,7 @@ public class Datos_Producto extends javax.swing.JFrame {
             if (comprobacion(codigo) == true) {
                 boolean resultado = prDao.insertarProducto(nuevoProducto);
                 if (resultado == true) {
-                    bodega.actualizarTabla();
+                    bodega.actualizarTabla(0);
                     dispose();
                 }
             } else {
@@ -200,7 +200,7 @@ public class Datos_Producto extends javax.swing.JFrame {
             boolean resultado = prDao.actualizarProducto(nuevoProducto);
             if (resultado == true) {
                 JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
-                bodega.actualizarTabla();
+                bodega.actualizarTabla(0);
                 bodega.eliminarProductoSeleccionado();
                 dispose();
             }
