@@ -18,7 +18,7 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         this.empleado = empleado;
         setResizable(false);
         setLocationRelativeTo(null);
-        actualizarTabla();
+        actualizarTabla(0);
         labelUser.setText(empleado.getNombre());
         labelRol.setText(empleado.getRol());
     }
@@ -39,6 +39,11 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         botonBorrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         labelUser = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        botonId = new javax.swing.JButton();
+        botonNombre = new javax.swing.JButton();
+        botonRol = new javax.swing.JButton();
+        botonTienda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -111,39 +116,85 @@ public class Manejo_Empleados extends javax.swing.JFrame {
 
         labelUser.setText("user");
 
+        jLabel4.setText("Ordenar por: ");
+
+        botonId.setText("Id");
+        botonId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIdActionPerformed(evt);
+            }
+        });
+
+        botonNombre.setText("Nombre");
+        botonNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNombreActionPerformed(evt);
+            }
+        });
+
+        botonRol.setText("Rol");
+        botonRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRolActionPerformed(evt);
+            }
+        });
+
+        botonTienda.setText("Tienda");
+        botonTienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonTiendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(389, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(65, 65, 65)
                         .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botonBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(jLabel4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botonId, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(botonNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(botonRol, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(botonTienda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelUser)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelRol, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
+                        .addComponent(botonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,14 +210,28 @@ public class Manejo_Empleados extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textoBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonBusqueda))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonId)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonRol)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonTienda)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(botonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(42, 42, 42))
+                    .addComponent(botonBorrar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(botonModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonAgregar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,10 +268,14 @@ public class Manejo_Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBusquedaActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
-        Datos_Empleado datos = new Datos_Empleado(empleadoSeleccionado, true, this);
-        datos.setVisible(true);
-        botonModificar.setEnabled(false);
-        botonBorrar.setEnabled(false);
+        if (empleadoSeleccionado.getId_empleado() == empleado.getId_empleado()) {
+            JOptionPane.showMessageDialog(null, "No te puedes modificar a ti mismo");
+        } else {
+            Datos_Empleado datos = new Datos_Empleado(empleadoSeleccionado, true, this);
+            datos.setVisible(true);
+            botonModificar.setEnabled(false);
+            botonBorrar.setEnabled(false);
+        }
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
@@ -218,22 +287,42 @@ public class Manejo_Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_tabla1MouseClicked
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
-//        int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de borrar el producto: \n"
-//            + "Nombre: " + empleadoSeleccionado.getNombre() + "\n"
-//            + "Fabricante: " + empleadoSeleccionado.getFabricante() + "\n"
-//            + "Codigo: " + empleadoSeleccionado.getCodigo());
-//        if(opcion == JOptionPane.YES_OPTION){
-//            boolean resultado = productoDao.eliminarProducto(empleadoSeleccionado);
-//            if(resultado == true){
-//                JOptionPane.showMessageDialog(null, "Producto eliminado");
-//                eliminarProductoSeleccionado();
-//                actualizarTabla();
-//            }
-//        }
+        if (empleadoSeleccionado.getId_empleado() == empleado.getId_empleado()) {
+            JOptionPane.showMessageDialog(null, "No te puedes borrar a ti mismo");
+        } else {
+            int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de borrar al empleado: \n"
+                    + "Nombre: " + empleadoSeleccionado.getNombre() + "\n"
+                    + "Rol: " + empleadoSeleccionado.getRol()+ "\n"
+                    + "DPI: " + empleadoSeleccionado.getDpi());
+            if (opcion == JOptionPane.YES_OPTION) {
+                boolean resultado = empDao.borrarEmpleado(empleadoSeleccionado);
+                if (resultado == true) {
+                    JOptionPane.showMessageDialog(null, "Empleado eliminado");
+                    eliminarProductoSeleccionado();
+                    actualizarTabla(0);
+                }
+            }
+        }
     }//GEN-LAST:event_botonBorrarActionPerformed
 
-    public void actualizarTabla() {
-        ArrayList<Empleado> empleados = empDao.listarEmpleados();
+    private void botonIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIdActionPerformed
+        actualizarTabla(0);
+    }//GEN-LAST:event_botonIdActionPerformed
+
+    private void botonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNombreActionPerformed
+        actualizarTabla(1);
+    }//GEN-LAST:event_botonNombreActionPerformed
+
+    private void botonRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRolActionPerformed
+        actualizarTabla(2);
+    }//GEN-LAST:event_botonRolActionPerformed
+
+    private void botonTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTiendaActionPerformed
+        actualizarTabla(3);
+    }//GEN-LAST:event_botonTiendaActionPerformed
+
+    public void actualizarTabla(int orden) {
+        ArrayList<Empleado> empleados = empDao.listarEmpleados(orden);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_Empleado");
@@ -261,15 +350,20 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         botonModificar.setEnabled(false);
         botonBorrar.setEnabled(false);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonBusqueda;
+    private javax.swing.JButton botonId;
     private javax.swing.JButton botonModificar;
+    private javax.swing.JButton botonNombre;
+    private javax.swing.JButton botonRol;
+    private javax.swing.JButton botonTienda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelRol;
     private javax.swing.JLabel labelUser;

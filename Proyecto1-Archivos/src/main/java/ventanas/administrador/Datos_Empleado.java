@@ -66,8 +66,10 @@ public class Datos_Empleado extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         listaRol = new javax.swing.JComboBox<>();
         listaTienda = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        textoUsuario = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Datos del Empleado");
 
@@ -96,8 +98,20 @@ public class Datos_Empleado extends javax.swing.JFrame {
         jLabel6.setText("Tienda:");
 
         listaRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaRolActionPerformed(evt);
+            }
+        });
 
         listaTienda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listaTienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaTiendaActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Usuario: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,12 +149,19 @@ public class Datos_Empleado extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(28, 28, 28)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(textoDpi, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(listaTienda, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel7))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(28, 28, 28)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(textoDpi, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(listaTienda, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(textoUsuario))))))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,76 +188,114 @@ public class Datos_Empleado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(listaTienda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-        try {
-            String nombre = textoNombre.getText();
-            if (nombre.equals("")) {
-                nombre = null;
-            }
-            String telefono = textoTelefono.getText();
-            if (telefono.equals("")) {
-                telefono = null;
-            }
-            String dpi = textoDpi.getText();
-            if (dpi.equals("")) {
-                dpi = null;
-            }
-            
-            String rol = String.valueOf(listaRol.getSelectedItem());
-            int numberTienda = listaTienda.getSelectedIndex();
-            int tienda = tiendas.get(numberTienda).getId_tienda();
-            String contraseña = generarContraseña(8);
-            String usuario = generarUsuario();
-            Empleado empleado = new Empleado(0, nombre, telefono, rol, dpi, tienda, usuario, contraseña);
-            System.out.println(empleado.toString());
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Los valores de precio y cantidad deben ser numericos");
+
+        String nombre = textoNombre.getText();
+        if (nombre.equals("")) {
+            nombre = null;
         }
+        String telefono = textoTelefono.getText();
+        if (telefono.equals("")) {
+            telefono = null;
+        }
+        String dpi = textoDpi.getText();
+        if (dpi.equals("")) {
+            dpi = null;
+        }
+        
+        String usuario = textoUsuario.getText();
+        if(usuario.equals("")){
+            usuario = null;
+        }
+        String rol = String.valueOf(listaRol.getSelectedItem());
+        int numberTienda = listaTienda.getSelectedIndex();
+        int tienda = tiendas.get(numberTienda).getId_tienda();
+        String contraseña = generarContraseña(8);
+        Empleado empleado = new Empleado(0, nombre, telefono, rol, dpi, tienda, usuario, contraseña);
+        boolean resultado = empleadoDao.insertarEmpleado(empleado);
+        if (resultado == true) {
+            dispose();
+            manejo.actualizarTabla(0);
+        }
+
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
-//        try {
-//            String nombre = textoNombre.getText();
-//            if (nombre.equals("")) {
-//                nombre = null;
-//            }
-//            String fabricante = textoTelefono.getText();
-//            if (fabricante.equals("")) {
-//                fabricante = null;
-//            }
-//            String codigo = textoCodigo.getText();
-//            if (codigo.equals("")) {
-//                codigo = null;
-//            }
-//            double precio = Double.parseDouble(textoDpi.getText());
-//            int cantidad = Integer.parseInt(textoCantidad.getText());
-//            Producto nuevoProducto = new Producto(producto.getId_producto(), nombre, fabricante, codigo, precio, cantidad, 4);
-//            boolean resultado = prDao.actualizarProducto(nuevoProducto);
-//            if (resultado == true) {
-//                JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
-//                bodega.actualizarTabla();
-//                bodega.eliminarProductoSeleccionado();
-//                dispose();
-//            }
-//        } catch (NumberFormatException e) {
-//            JOptionPane.showMessageDialog(null, "Los valores de precio y cantidad deben ser numericos");
-//        }
+
+        String nombre = textoNombre.getText();
+        if (nombre.equals("")) {
+            nombre = null;
+        }
+        String telefono = textoTelefono.getText();
+        if (telefono.equals("")) {
+            telefono = null;
+        }
+        String dpi = textoDpi.getText();
+        if (dpi.equals("")) {
+            dpi = null;
+        }
+
+        String usuario = textoUsuario.getText();
+        if(usuario.equals("")){
+            usuario = null;
+        }
+        
+        String rol = String.valueOf(listaRol.getSelectedItem());
+        int numberTienda = listaTienda.getSelectedIndex();
+        int tienda = tiendas.get(numberTienda).getId_tienda();
+        Empleado empleado = new Empleado(this.empleado.getId_empleado(), nombre, telefono, rol, dpi, tienda, usuario, "");
+        boolean resultado = empleadoDao.actualizarEmpleado(empleado);
+        if (resultado == true) {
+            JOptionPane.showMessageDialog(null, "Empleado modificado correctamente");
+            dispose();
+            manejo.actualizarTabla(0);
+            manejo.eliminarProductoSeleccionado();
+        } else {
+            JOptionPane.showMessageDialog(null, "Vuelve a ingresar los datos");
+        }
+
     }//GEN-LAST:event_botonModificarActionPerformed
+
+    private void listaRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaRolActionPerformed
+        if (String.valueOf(listaRol.getSelectedItem()).equals("Bodega")) {
+            listaTienda.setSelectedIndex(3);
+            listaTienda.setEnabled(false);
+        } else if (String.valueOf(listaRol.getSelectedItem()).equals("Administrador")) {
+            listaTienda.setSelectedIndex(0);
+            listaTienda.setEnabled(false);
+        } else {
+            if (listaTienda.getItemCount() > 0) {
+                listaTienda.setEnabled(true);
+                listaTienda.setSelectedIndex(0);
+            }
+        }
+    }//GEN-LAST:event_listaRolActionPerformed
+
+    private void listaTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTiendaActionPerformed
+        if (String.valueOf(listaTienda.getSelectedItem()).equals("Bodega")) {
+            listaRol.setSelectedItem("Bodega");
+        }
+    }//GEN-LAST:event_listaTiendaActionPerformed
 
     private void actualizarCajasDeTexto() {
         textoNombre.setText(empleado.getNombre());
         textoTelefono.setText(empleado.getTelefono());
         textoDpi.setText(empleado.getDpi());
+        textoUsuario.setText(empleado.getUsername());
         listaRol.setSelectedItem(empleado.getRol());
         Tienda tienda = tiendaDao.listarTiendaPorCodigo(empleado.getId_tienda());
         listaTienda.setSelectedItem(tienda.getNombre());
@@ -256,11 +315,6 @@ public class Datos_Empleado extends javax.swing.JFrame {
         return sb.toString();
     }
 
-    private String generarUsuario() {
-        ArrayList<Empleado> empleados = empleadoDao.listarEmpleados();
-        String usuario = "user" + (empleados.size() + 1);
-        return usuario;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
@@ -271,10 +325,12 @@ public class Datos_Empleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JComboBox<String> listaRol;
     private javax.swing.JComboBox<String> listaTienda;
     private javax.swing.JTextField textoDpi;
     private javax.swing.JTextField textoNombre;
     private javax.swing.JTextField textoTelefono;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }

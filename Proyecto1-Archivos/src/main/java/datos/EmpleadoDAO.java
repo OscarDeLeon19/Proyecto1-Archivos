@@ -8,11 +8,34 @@ import javax.swing.JOptionPane;
 
 public class EmpleadoDAO {
 
+    public boolean borrarEmpleado(Empleado empleado) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "DELETE FROM ControlPersonal.Empleado WHERE id_empleado = ?";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, empleado.getId_empleado());
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al borrar empleado: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
+
     public boolean actualizarEmpleado(Empleado empleado) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
-        String query = "UPDATE ControlPersonal.Empleado SET nombre = ?, telefono = ?, rol = ?, dpi = ?, id_tienda = ? WHERE id_empleado = ?";
+        String query = "UPDATE ControlPersonal.Empleado SET nombre = ?, telefono = ?, rol = ?, dpi = ?, id_tienda = ?, username = ? WHERE id_empleado = ?";
         try {
             pr = con.prepareStatement(query);
             pr.setString(1, empleado.getNombre());
@@ -20,11 +43,12 @@ public class EmpleadoDAO {
             pr.setString(3, empleado.getRol());
             pr.setString(4, empleado.getDpi());
             pr.setInt(5, empleado.getId_tienda());
-            pr.setInt(6, empleado.getId_empleado());
+            pr.setString(6, empleado.getUsername());
+            pr.setInt(7, empleado.getId_empleado());
             pr.executeUpdate();
         } catch (SQLException e) {
             resultado = false;
-            JOptionPane.showMessageDialog(null, "Error al ingresar empleado: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al actualizar empleado: " + e.getMessage());
         } finally {
             try {
                 con.close();
@@ -136,14 +160,27 @@ public class EmpleadoDAO {
         return empleados;
     }
 
-    public ArrayList<Empleado> listarEmpleados() {
+    public ArrayList<Empleado> listarEmpleados(int orden) {
         ArrayList<Empleado> empleados = new ArrayList<>();
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT e.Id_empleado, e.Nombre, e.Telefono, e.Rol, e.Dpi, t.Nombre\n"
                 + "	FROM ControlPersonal.Empleado e JOIN ControlEmpresa.Tienda t\n"
-                + "	ON e.Id_tienda = t.Id_tienda ORDER BY e.Id_empleado ASC;";
+                + "	ON e.Id_tienda = t.Id_tienda ";
+        switch (orden) {
+            case 1:
+                query += "ORDER BY e.Nombre ASC;";
+                break;
+            case 2:
+                query += "ORDER BY e.Rol ASC;";
+                break;
+            case 3:
+                query += "ORDER BY t.Nombre ASC;";
+                break;
+            default:
+                query += "ORDER BY e.Id_empleado ASC;";
+        }
         try {
             pr = con.prepareStatement(query);
             rs = pr.executeQuery();
