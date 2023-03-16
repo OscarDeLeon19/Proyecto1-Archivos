@@ -4,12 +4,14 @@ import datos.EmpleadoDAO;
 import entidades.Empleado;
 import entidades.Producto;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Manejo_Empleados extends javax.swing.JFrame {
 
     private Empleado empleado;
-    private EmpleadoDAO emDao = new EmpleadoDAO();
+    private EmpleadoDAO empDao = new EmpleadoDAO();
+    private Empleado empleadoSeleccionado;
 
     public Manejo_Empleados(Empleado empleado) {
         initComponents();
@@ -48,7 +50,7 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Empleados");
 
-        botonAgregar.setText("Agregar Producto");
+        botonAgregar.setText("Agregar Empleado");
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarActionPerformed(evt);
@@ -62,7 +64,7 @@ public class Manejo_Empleados extends javax.swing.JFrame {
             }
         });
 
-        botonModificar.setText("Modificar Producto");
+        botonModificar.setText("Modificar Empleado");
         botonModificar.setEnabled(false);
         botonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +98,7 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla1);
 
-        botonBorrar.setText("Borrar Producto");
+        botonBorrar.setText("Borrar Empleado");
         botonBorrar.setEnabled(false);
         botonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,13 +173,13 @@ public class Manejo_Empleados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-//        Datos_Producto datos = new Datos_Producto(null, false, this);
-//        datos.setVisible(true);
+        Datos_Empleado datos = new Datos_Empleado(null, false, this);
+        datos.setVisible(true);
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
         String texto = textoBuscar.getText();
-        ArrayList<Empleado> empleados = emDao.listarEmpleadosPorNombre(texto);
+        ArrayList<Empleado> empleados = empDao.listarEmpleadosPorNombre(texto);
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_Empleado");
@@ -201,26 +203,27 @@ public class Manejo_Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBusquedaActionPerformed
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
-//        Datos_Producto datos = new Datos_Producto(productoSeleccionado, true, this);
-//        datos.setVisible(true);
-//        botonModificar.setEnabled(true);
+        Datos_Empleado datos = new Datos_Empleado(empleadoSeleccionado, true, this);
+        datos.setVisible(true);
+        botonModificar.setEnabled(false);
+        botonBorrar.setEnabled(false);
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
-//        int Fila = tabla1.getSelectedRow();
-//        String id = tabla1.getValueAt(Fila, 0).toString();
-//        productoSeleccionado = productoDao.listarProductosPorId(Integer.parseInt(id));
-//        botonModificar.setEnabled(true);
-//        botonBorrar.setEnabled(true);
+        int Fila = tabla1.getSelectedRow();
+        String id = tabla1.getValueAt(Fila, 0).toString();
+        empleadoSeleccionado = empDao.obtenerEmpleadoPorId(Integer.parseInt(id));
+        botonModificar.setEnabled(true);
+        botonBorrar.setEnabled(true);
     }//GEN-LAST:event_tabla1MouseClicked
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
 //        int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de borrar el producto: \n"
-//            + "Nombre: " + productoSeleccionado.getNombre() + "\n"
-//            + "Fabricante: " + productoSeleccionado.getFabricante() + "\n"
-//            + "Codigo: " + productoSeleccionado.getCodigo());
+//            + "Nombre: " + empleadoSeleccionado.getNombre() + "\n"
+//            + "Fabricante: " + empleadoSeleccionado.getFabricante() + "\n"
+//            + "Codigo: " + empleadoSeleccionado.getCodigo());
 //        if(opcion == JOptionPane.YES_OPTION){
-//            boolean resultado = productoDao.eliminarProducto(productoSeleccionado);
+//            boolean resultado = productoDao.eliminarProducto(empleadoSeleccionado);
 //            if(resultado == true){
 //                JOptionPane.showMessageDialog(null, "Producto eliminado");
 //                eliminarProductoSeleccionado();
@@ -230,7 +233,7 @@ public class Manejo_Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_botonBorrarActionPerformed
 
     public void actualizarTabla() {
-        ArrayList<Empleado> empleados = emDao.listarEmpleados();
+        ArrayList<Empleado> empleados = empDao.listarEmpleados();
 
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Id_Empleado");
@@ -253,6 +256,12 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         tabla1.setModel(modelo);
     }
 
+    public void eliminarProductoSeleccionado() {
+        empleadoSeleccionado = null;
+        botonModificar.setEnabled(false);
+        botonBorrar.setEnabled(false);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonBorrar;

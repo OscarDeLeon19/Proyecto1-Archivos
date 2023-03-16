@@ -8,6 +8,64 @@ import javax.swing.JOptionPane;
 
 public class EmpleadoDAO {
 
+    public boolean actualizarEmpleado(Empleado empleado) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "UPDATE ControlPersonal.Empleado SET nombre = ?, telefono = ?, rol = ?, dpi = ?, id_tienda = ? WHERE id_empleado = ?";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setString(1, empleado.getNombre());
+            pr.setString(2, empleado.getTelefono());
+            pr.setString(3, empleado.getRol());
+            pr.setString(4, empleado.getDpi());
+            pr.setInt(5, empleado.getId_tienda());
+            pr.setInt(6, empleado.getId_empleado());
+            pr.executeUpdate();
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al ingresar empleado: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
+
+    public boolean insertarEmpleado(Empleado empleado) {
+        boolean resultado = true;
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        String query = "INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setString(1, empleado.getNombre());
+            pr.setString(2, empleado.getTelefono());
+            pr.setString(3, empleado.getRol());
+            pr.setString(4, empleado.getDpi());
+            pr.setInt(5, empleado.getId_tienda());
+            pr.setString(6, empleado.getUsername());
+            pr.setString(7, empleado.getPassword());
+            pr.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Empleado registrado correctamente");
+        } catch (SQLException e) {
+            resultado = false;
+            JOptionPane.showMessageDialog(null, "Error al ingresar empleado: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return resultado;
+    }
+
     public Empleado obtenerEmpleadoPorId(int id_empleado) {
         Empleado empleado = null;
         Connection con = Conexion.getConnection();

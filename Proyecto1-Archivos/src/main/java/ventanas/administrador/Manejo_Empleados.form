@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
@@ -114,7 +114,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonAgregar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar Producto"/>
+        <Property name="text" type="java.lang.String" value="Agregar Empleado"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAgregarActionPerformed"/>
@@ -130,7 +130,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonModificar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Modificar Producto"/>
+        <Property name="text" type="java.lang.String" value="Modificar Empleado"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
@@ -168,7 +168,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="botonBorrar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Borrar Producto"/>
+        <Property name="text" type="java.lang.String" value="Borrar Empleado"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>

@@ -247,7 +247,9 @@ public class Bodega extends javax.swing.JFrame {
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         Datos_Producto datos = new Datos_Producto(productoSeleccionado, true, this);
         datos.setVisible(true);
-        botonModificar.setEnabled(true);
+        botonModificar.setEnabled(false);
+        botonBorrar.setEnabled(false);
+        
     }//GEN-LAST:event_botonModificarActionPerformed
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed

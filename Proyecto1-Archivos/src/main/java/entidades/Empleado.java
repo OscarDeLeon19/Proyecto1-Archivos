@@ -100,7 +100,8 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" + "id_empleado=" + id_empleado + ", nombre=" + nombre + ", telefono=" + telefono + ", rol=" + rol + ", dpi=" + dpi + ", id_tienda=" + id_tienda + ", password=" + password + '}';
+        return "Empleado{" + "id_empleado=" + id_empleado + ", nombre=" + nombre + ", telefono=" + telefono + ", rol=" + rol + ", dpi=" + dpi + ", id_tienda=" + id_tienda + ", username=" + username + ", password=" + password + '}';
     }
 
+    
 }
