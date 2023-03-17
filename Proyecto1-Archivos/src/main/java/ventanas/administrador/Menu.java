@@ -21,7 +21,7 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         botonEmpleados = new javax.swing.JButton();
-        botonAdministrador = new javax.swing.JButton();
+        botonReportes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -34,7 +34,12 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        botonAdministrador.setText("Reportes");
+        botonReportes.setText("Reportes");
+        botonReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReportesActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Menu de Administrador");
 
@@ -47,7 +52,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botonAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botonReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botonEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -62,7 +67,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(botonEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonAdministrador, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botonReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -73,9 +78,14 @@ public class Menu extends javax.swing.JFrame {
         manejo.setVisible(true);
     }//GEN-LAST:event_botonEmpleadosActionPerformed
 
+    private void botonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReportesActionPerformed
+        Reportes reportes = new Reportes();
+        reportes.setVisible(true);
+    }//GEN-LAST:event_botonReportesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAdministrador;
     private javax.swing.JButton botonEmpleados;
+    private javax.swing.JButton botonReportes;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
