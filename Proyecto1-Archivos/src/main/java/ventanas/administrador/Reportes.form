@@ -142,11 +142,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 5 productos m&#xe1;s vendidos por sucursal"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte8ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte9">
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 5 productos con m&#xe1;s ingresos por sucursal"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte9ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

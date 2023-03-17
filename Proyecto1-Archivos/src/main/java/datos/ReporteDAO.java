@@ -114,4 +114,78 @@ public class ReporteDAO {
         }
         return reporte;
     }
+
+    public ArrayList<Reporte> verReporteTienda(int id_tienda) {
+        ArrayList<Reporte> reporte = new ArrayList<>();
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT COUNT(p.id_producto) as Ventas,  p.id_producto, p.nombre, p.id_tienda, t.nombre as Tienda FROM ControlEmpresa.Producto p\n"
+                + "	JOIN ControlVentas.Venta v  ON v.id_producto = p.id_producto\n"
+                + "	JOIN ControlEmpresa.Tienda t ON p.id_tienda = t.id_tienda\n"
+                + "	WHERE p.id_tienda = ?\n"
+                + "	GROUP BY(p.id_producto, t.id_tienda) ORDER BY Ventas DESC LIMIT 5;";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, id_tienda);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                Reporte nuevo = new Reporte();
+                nuevo.setCantidad(rs.getInt(1));
+                nuevo.setId(rs.getString(2));
+                nuevo.setNombre(rs.getString(3));
+                nuevo.setId_tienda(rs.getInt(4));
+                nuevo.setNombreTienda(rs.getString(5));
+                reporte.add(nuevo);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+                rs.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return reporte;
+    }
+
+    public ArrayList<Reporte> verReporteTiendaGanancias(int id_tienda) {
+        ArrayList<Reporte> reporte = new ArrayList<>();
+        Connection con = Conexion.getConnection();
+        PreparedStatement pr = null;
+        ResultSet rs = null;
+        String query = "SELECT SUM(v.total) as Ingresos,  p.id_producto, p.nombre, p.id_tienda, t.nombre as Tienda FROM ControlEmpresa.Producto p\n"
+                + "	JOIN ControlVentas.Venta v  ON v.id_producto = p.id_producto\n"
+                + "	JOIN ControlEmpresa.Tienda t ON p.id_tienda = t.id_tienda\n"
+                + "	WHERE p.id_tienda = ?\n"
+                + "	GROUP BY(p.id_producto, t.id_tienda) ORDER BY Ingresos DESC LIMIT 5;";
+        try {
+            pr = con.prepareStatement(query);
+            pr.setInt(1, id_tienda);
+            rs = pr.executeQuery();
+            while (rs.next()) {
+                Reporte nuevo = new Reporte();
+                nuevo.setSuma(rs.getDouble(1));
+                nuevo.setId(rs.getString(2));
+                nuevo.setNombre(rs.getString(3));
+                nuevo.setId_tienda(rs.getInt(4));
+                nuevo.setNombreTienda(rs.getString(5));
+                reporte.add(nuevo);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
+        } finally {
+            try {
+                con.close();
+                pr.close();
+                rs.close();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
+            }
+        }
+        return reporte;
+    }
 }

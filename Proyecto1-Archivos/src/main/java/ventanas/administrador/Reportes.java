@@ -84,8 +84,18 @@ public class Reportes extends javax.swing.JFrame {
         });
 
         botonReporte8.setText("Top 5 productos más vendidos por sucursal");
+        botonReporte8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte8ActionPerformed(evt);
+            }
+        });
 
         botonReporte9.setText("Top 5 productos con más ingresos por sucursal");
+        botonReporte9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,6 +196,19 @@ public class Reportes extends javax.swing.JFrame {
         tabla.actualizarTablaReporte7(reportes);
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte7ActionPerformed
+
+    private void botonReporte8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte8ActionPerformed
+        Tabla_Reportes_Tienda tabla = new Tabla_Reportes_Tienda();
+        tabla.actualizarTablaReporte1();
+        tabla.setVisible(true);
+        
+    }//GEN-LAST:event_botonReporte8ActionPerformed
+
+    private void botonReporte9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte9ActionPerformed
+        Tabla_Reportes_Tienda tabla = new Tabla_Reportes_Tienda();
+        tabla.actualizarTablaReporte2();
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte9ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonReporte1;
