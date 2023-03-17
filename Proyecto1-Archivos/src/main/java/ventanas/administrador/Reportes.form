@@ -94,31 +94,49 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 10 clietes que mas ganancias generan"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 3 sucursales con mas ventas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 3 sucursales con mas ingresos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 3 empleados con m&#xe1;s ventas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte5ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 3 empleados con mas ingresos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte6ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Top 10 productos con mas ingresos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonReporte7ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonReporte8">
       <Properties>

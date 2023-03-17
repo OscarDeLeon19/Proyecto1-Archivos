@@ -42,16 +42,46 @@ public class Reportes extends javax.swing.JFrame {
         });
 
         botonReporte2.setText("Top 10 clietes que mas ganancias generan");
+        botonReporte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte2ActionPerformed(evt);
+            }
+        });
 
         botonReporte3.setText("Top 3 sucursales con mas ventas");
+        botonReporte3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte3ActionPerformed(evt);
+            }
+        });
 
         botonReporte4.setText("Top 3 sucursales con mas ingresos");
+        botonReporte4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte4ActionPerformed(evt);
+            }
+        });
 
         botonReporte5.setText("Top 3 empleados con más ventas");
+        botonReporte5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte5ActionPerformed(evt);
+            }
+        });
 
         botonReporte6.setText("Top 3 empleados con mas ingresos");
+        botonReporte6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte6ActionPerformed(evt);
+            }
+        });
 
         botonReporte7.setText("Top 10 productos con mas ingresos");
+        botonReporte7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporte7ActionPerformed(evt);
+            }
+        });
 
         botonReporte8.setText("Top 5 productos más vendidos por sucursal");
 
@@ -109,11 +139,53 @@ public class Reportes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte1ActionPerformed
-        ArrayList<Reporte> reportes = reporteDao.verReporte1();
+        ArrayList<Reporte> reportes = reporteDao.verReporteCantidad(1);
         Tabla_Reportes tabla = new Tabla_Reportes();
         tabla.actualizarTablaReporte1(reportes);
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte1ActionPerformed
+
+    private void botonReporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte2ActionPerformed
+        ArrayList<Reporte> reportes = reporteDao.verReporteSuma(1);
+        Tabla_Reportes tabla = new Tabla_Reportes();
+        tabla.actualizarTablaReporte2(reportes);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte2ActionPerformed
+
+    private void botonReporte3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte3ActionPerformed
+        ArrayList<Reporte> reportes = reporteDao.verReporteCantidad(2);
+        Tabla_Reportes tabla = new Tabla_Reportes();
+        tabla.actualizarTablaReporte3(reportes);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte3ActionPerformed
+
+    private void botonReporte4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte4ActionPerformed
+        ArrayList<Reporte> reportes = reporteDao.verReporteSuma(2);
+        Tabla_Reportes tabla = new Tabla_Reportes();
+        tabla.actualizarTablaReporte4(reportes);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte4ActionPerformed
+
+    private void botonReporte5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte5ActionPerformed
+        ArrayList<Reporte> reportes = reporteDao.verReporteCantidad(3);
+        Tabla_Reportes tabla = new Tabla_Reportes();
+        tabla.actualizarTablaReporte5(reportes);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte5ActionPerformed
+
+    private void botonReporte6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte6ActionPerformed
+        ArrayList<Reporte> reportes = reporteDao.verReporteSuma(3);
+        Tabla_Reportes tabla = new Tabla_Reportes();
+        tabla.actualizarTablaReporte6(reportes);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte6ActionPerformed
+
+    private void botonReporte7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte7ActionPerformed
+        ArrayList<Reporte> reportes = reporteDao.verReporteSuma(4);
+        Tabla_Reportes tabla = new Tabla_Reportes();
+        tabla.actualizarTablaReporte7(reportes);
+        tabla.setVisible(true);
+    }//GEN-LAST:event_botonReporte7ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonReporte1;

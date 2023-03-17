@@ -1,6 +1,4 @@
-
 package entidades;
-
 
 public class Reporte {
 
@@ -9,6 +7,7 @@ public class Reporte {
     private String nombre;
     private int id_tienda;
     private String nombreTienda;
+    private double suma;
 
     public Reporte(int cantidad, String id, String nombre) {
         this.cantidad = cantidad;
@@ -24,7 +23,21 @@ public class Reporte {
         this.nombreTienda = nombreTienda;
     }
 
+    public Reporte(double suma, String id, String nombre) {
+        this.suma = suma;
+        this.id = id;
+        this.nombre = nombre;
+    }
+
     public Reporte() {
+    }
+
+    public double getSuma() {
+        return suma;
+    }
+
+    public void setSuma(double suma) {
+        this.suma = suma;
     }
 
     public int getCantidad() {
@@ -71,5 +84,5 @@ public class Reporte {
     public String toString() {
         return "Reporte{" + "cantidad=" + cantidad + ", id=" + id + ", nombre=" + nombre + ", id_tienda=" + id_tienda + ", nombreTienda=" + nombreTienda + '}';
     }
-       
+
 }
