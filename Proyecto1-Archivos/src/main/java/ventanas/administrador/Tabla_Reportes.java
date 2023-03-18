@@ -8,12 +8,19 @@ import javax.swing.table.DefaultTableModel;
 
 public class Tabla_Reportes extends javax.swing.JFrame {
 
+    /**
+     * Constructor de la clase Tabla_Reportes
+     */
     public Tabla_Reportes() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Actualiza la tabla con los datos del primer reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte1(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 10 productos mas vendidos");
         DefaultTableModel modelo = new DefaultTableModel();
@@ -39,6 +46,10 @@ public class Tabla_Reportes extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(2).setCellRenderer(tcr);
     }
 
+    /**
+     * Actualiza la tabla con los datos del segundo reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte2(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 10 clientes que mas ganancias generan");
         DefaultTableModel modelo = new DefaultTableModel();
@@ -64,6 +75,10 @@ public class Tabla_Reportes extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(2).setCellRenderer(tcr);
     }
 
+    /**
+     * Actualiza la tabla con los datos del tercer reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte3(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 3 sucursales con mas ventas");
         DefaultTableModel modelo = new DefaultTableModel();
@@ -89,6 +104,10 @@ public class Tabla_Reportes extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(2).setCellRenderer(tcr);
     }
 
+    /**
+     * Actualiza la tabla con los datos del cuarto reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte4(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 3 sucursales con mas ingresos");
         DefaultTableModel modelo = new DefaultTableModel();
@@ -114,6 +133,10 @@ public class Tabla_Reportes extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(2).setCellRenderer(tcr);
     }
 
+    /**
+     * Actualiza la tabla con los datos del quinto reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte5(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 3 empleados con mas ventas");
         DefaultTableModel modelo = new DefaultTableModel();
@@ -139,6 +162,10 @@ public class Tabla_Reportes extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(2).setCellRenderer(tcr);
     }
 
+    /**
+     * Actualiza la tabla con los datos del sexto reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte6(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 3 empleados con mas ingresos");
         DefaultTableModel modelo = new DefaultTableModel();
@@ -164,6 +191,10 @@ public class Tabla_Reportes extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(2).setCellRenderer(tcr);
     }
 
+    /**
+     * Actualiza la tabla con los datos del septimo reporte
+     * @param reportes 
+     */
     public void actualizarTablaReporte7(ArrayList<Reporte> reportes) {
         labelTitulo.setText("Top 10 productos con mas ingresos");
         DefaultTableModel modelo = new DefaultTableModel();

@@ -6,8 +6,6 @@ import entidades.Empleado;
 import entidades.Tienda;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class Datos_Empleado extends javax.swing.JFrame {
@@ -18,6 +16,12 @@ public class Datos_Empleado extends javax.swing.JFrame {
     private EmpleadoDAO empleadoDao = new EmpleadoDAO();
     private ArrayList<Tienda> tiendas = new ArrayList<>();
 
+    /**
+     * Constructor de la clase empleado
+     * @param empleado El empleado actual 
+     * @param modificacion Si se va a modificar algun empleado
+     * @param manejo La ventana de manejo
+     */
     public Datos_Empleado(Empleado empleado, boolean modificacion, Manejo_Empleados manejo) {
         initComponents();
         setResizable(false);
@@ -39,6 +43,9 @@ public class Datos_Empleado extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Segun la lista de tiendas, se agregan valores a los Jcombobox
+     */
     private void llenarListas() {
         for (Tienda tienda : tiendas) {
             listaTienda.addItem(tienda.getNombre());
@@ -199,6 +206,10 @@ public class Datos_Empleado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obtiene los parametros de las  cajas de texto y crea un nuevo empleado para la base de datos
+     * @param evt 
+     */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
 
         String nombre = textoNombre.getText();
@@ -222,16 +233,21 @@ public class Datos_Empleado extends javax.swing.JFrame {
         int numberTienda = listaTienda.getSelectedIndex();
         int tienda = tiendas.get(numberTienda).getId_tienda();
         String contraseña = generarContraseña(8);
-        Empleado empleado = new Empleado(0, nombre, telefono, rol, dpi, tienda, usuario, contraseña);
-        boolean resultado = empleadoDao.insertarEmpleado(empleado);
+        Empleado nuevoEmpleado = new Empleado(0, nombre, telefono, rol, dpi, tienda, usuario, contraseña);
+        boolean resultado = empleadoDao.insertarEmpleado(nuevoEmpleado);
         if (resultado == true) {
-            JOptionPane.showMessageDialog(null, "Username: " + empleado.getUsername() + "\nPassword: " + empleado.getPassword());
+            JOptionPane.showMessageDialog(null, "Username: " + nuevoEmpleado.getUsername() + "\nPassword: " + nuevoEmpleado.getPassword());
             dispose();
             manejo.actualizarTabla(0);
         }
 
     }//GEN-LAST:event_botonAgregarActionPerformed
 
+    /**
+     * Obtiene los valores de las cajas de texto
+     * Llama a la modificacion de un empleado
+     * @param evt 
+     */
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
 
         String nombre = textoNombre.getText();
@@ -255,8 +271,8 @@ public class Datos_Empleado extends javax.swing.JFrame {
         String rol = String.valueOf(listaRol.getSelectedItem());
         int numberTienda = listaTienda.getSelectedIndex();
         int tienda = tiendas.get(numberTienda).getId_tienda();
-        Empleado empleado = new Empleado(this.empleado.getId_empleado(), nombre, telefono, rol, dpi, tienda, usuario, "");
-        boolean resultado = empleadoDao.actualizarEmpleado(empleado);
+        Empleado nuevoEmpleado = new Empleado(this.empleado.getId_empleado(), nombre, telefono, rol, dpi, tienda, usuario, "");
+        boolean resultado = empleadoDao.actualizarEmpleado(nuevoEmpleado);
         if (resultado == true) {
             JOptionPane.showMessageDialog(null, "Empleado modificado correctamente");
             dispose();
@@ -268,6 +284,10 @@ public class Datos_Empleado extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botonModificarActionPerformed
 
+    /**
+     * Evento para cambiar los valores del JComboBox en funcion de un parametro seleccionado
+     * @param evt 
+     */
     private void listaRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaRolActionPerformed
         if (String.valueOf(listaRol.getSelectedItem()).equals("Bodega")) {
             listaTienda.setSelectedIndex(3);
@@ -283,12 +303,19 @@ public class Datos_Empleado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listaRolActionPerformed
 
+    /**
+     * Evento para cambiar los valores del JComboBox en funcion de un parametro seleccionado
+     * @param evt 
+     */
     private void listaTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTiendaActionPerformed
         if (String.valueOf(listaTienda.getSelectedItem()).equals("Bodega")) {
             listaRol.setSelectedItem("Bodega");
         }
     }//GEN-LAST:event_listaTiendaActionPerformed
 
+    /**
+     * Actualiza las cajas de texto con la informacion del empleado
+     */
     private void actualizarCajasDeTexto() {
         textoNombre.setText(empleado.getNombre());
         textoTelefono.setText(empleado.getTelefono());
@@ -299,6 +326,11 @@ public class Datos_Empleado extends javax.swing.JFrame {
         listaTienda.setSelectedItem(tienda.getNombre());
     }
 
+    /**
+     * Metodo para crear una contraseña con diferentes caracteres
+     * @param longitud la longitud de la contraseña
+     * @return La contraseña generada
+     */
     private String generarContraseña(int longitud) {
         final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 

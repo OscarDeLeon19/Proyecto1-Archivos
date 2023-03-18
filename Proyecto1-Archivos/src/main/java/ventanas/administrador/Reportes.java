@@ -8,6 +8,9 @@ public class Reportes extends javax.swing.JFrame {
 
     private ReporteDAO reporteDao = new ReporteDAO();
     
+    /**
+     * Constructor de la clase reportes
+     */
     public Reportes() {
         initComponents();       
         setResizable(false);
@@ -148,6 +151,12 @@ public class Reportes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte1ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteCantidad(1);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -155,6 +164,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte1ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte2ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteSuma(1);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -162,6 +177,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte2ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte3ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteCantidad(2);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -169,6 +190,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte3ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte4ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteSuma(2);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -176,6 +203,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte4ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte5ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteCantidad(3);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -183,6 +216,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte5ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte6ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteSuma(3);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -190,6 +229,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte6ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte7ActionPerformed
         ArrayList<Reporte> reportes = reporteDao.verReporteSuma(4);
         Tabla_Reportes tabla = new Tabla_Reportes();
@@ -197,6 +242,12 @@ public class Reportes extends javax.swing.JFrame {
         tabla.setVisible(true);
     }//GEN-LAST:event_botonReporte7ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte8ActionPerformed
         Tabla_Reportes_Tienda tabla = new Tabla_Reportes_Tienda();
         tabla.actualizarTablaReporte1();
@@ -204,6 +255,12 @@ public class Reportes extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonReporte8ActionPerformed
 
+    /**
+     * Obtiene reportes de la base de datos
+     * Crea una tabla de reportes
+     * Actualiza los datos de esta tabla
+     * @param evt 
+     */
     private void botonReporte9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporte9ActionPerformed
         Tabla_Reportes_Tienda tabla = new Tabla_Reportes_Tienda();
         tabla.actualizarTablaReporte2();

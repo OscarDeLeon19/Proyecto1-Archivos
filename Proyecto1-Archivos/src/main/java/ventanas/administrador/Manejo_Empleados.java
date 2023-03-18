@@ -2,7 +2,6 @@ package ventanas.administrador;
 
 import datos.EmpleadoDAO;
 import entidades.Empleado;
-import entidades.Producto;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +12,10 @@ public class Manejo_Empleados extends javax.swing.JFrame {
     private EmpleadoDAO empDao = new EmpleadoDAO();
     private Empleado empleadoSeleccionado;
 
+    /**
+     * Constructor de la clase Manejo_Empleados
+     * @param empleado El empleado actual
+     */
     public Manejo_Empleados(Empleado empleado) {
         initComponents();
         this.empleado = empleado;
@@ -237,11 +240,21 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Crea una ventana de datos de empleado
+     * @param evt 
+     */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         Datos_Empleado datos = new Datos_Empleado(null, false, this);
         datos.setVisible(true);
     }//GEN-LAST:event_botonAgregarActionPerformed
 
+    /**
+     * Obtiene el parametro de la caja de texto de busqueda
+     * Obtiene la lista de empleados de la base de datos
+     * Modifica la tabla
+     * @param evt 
+     */
     private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
         String texto = textoBuscar.getText();
         ArrayList<Empleado> empleados = empDao.listarEmpleadosPorNombre(texto);
@@ -278,6 +291,11 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
+    /**
+     * Evento al hacer click en la tabla
+     * Obtiene los datos del empleado seleccionado
+     * @param evt 
+     */
     private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
         int Fila = tabla1.getSelectedRow();
         String id = tabla1.getValueAt(Fila, 0).toString();
@@ -286,6 +304,10 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         botonBorrar.setEnabled(true);
     }//GEN-LAST:event_tabla1MouseClicked
 
+    /**
+     * Obtiene los datos para borrar un empleado de la base de datos
+     * @param evt 
+     */
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         if (empleadoSeleccionado.getId_empleado() == empleado.getId_empleado()) {
             JOptionPane.showMessageDialog(null, "No te puedes borrar a ti mismo");
@@ -305,22 +327,43 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonBorrarActionPerformed
 
+    /**
+     * Llama al metodo para actualizar la tabla
+     * @param evt 
+     */
     private void botonIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIdActionPerformed
         actualizarTabla(0);
     }//GEN-LAST:event_botonIdActionPerformed
 
+    /**
+     * Llama al metodo para actualizar la tabla
+     * @param evt 
+     */
     private void botonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNombreActionPerformed
         actualizarTabla(1);
     }//GEN-LAST:event_botonNombreActionPerformed
 
+    /**
+     * Llama al metodo para actualizar la tabla
+     * @param evt 
+     */
     private void botonRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRolActionPerformed
         actualizarTabla(2);
     }//GEN-LAST:event_botonRolActionPerformed
 
+    /**
+     * Llama al metodo para actualizar la tabla
+     * @param evt 
+     */
     private void botonTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTiendaActionPerformed
         actualizarTabla(3);
     }//GEN-LAST:event_botonTiendaActionPerformed
 
+    /**
+     * Obtiene los datos de los empleados
+     * Modifica la tabla
+     * @param orden El orden en el que se ordenaran los datos
+     */
     public void actualizarTabla(int orden) {
         ArrayList<Empleado> empleados = empDao.listarEmpleados(orden);
 
@@ -345,6 +388,9 @@ public class Manejo_Empleados extends javax.swing.JFrame {
         tabla1.setModel(modelo);
     }
 
+    /**
+     * Elimina el producto seleccionado de la tabla
+     */
     public void eliminarProductoSeleccionado() {
         empleadoSeleccionado = null;
         botonModificar.setEnabled(false);

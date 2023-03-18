@@ -8,6 +8,11 @@ import javax.swing.JOptionPane;
 
 public class EmpleadoDAO {
 
+    /**
+     * Borra el empleado de la base de datos
+     * @param empleado El empleado que se borrara
+     * @return Un booleano que indica si la operacion fue exitosa
+     */
     public boolean borrarEmpleado(Empleado empleado) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -31,6 +36,11 @@ public class EmpleadoDAO {
         return resultado;
     }
 
+    /**
+     * Actualiza la informacion de un empleado
+     * @param empleado El empleado que se actualizara
+     * @return Un booleano que indica si la operacion fue exitosa
+     */
     public boolean actualizarEmpleado(Empleado empleado) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -60,6 +70,11 @@ public class EmpleadoDAO {
         return resultado;
     }
 
+    /**
+     * Inserta un empleado en la base de datos
+     * @param empleado El empleado que se va a insertar
+     * @return Un booleano que indica si la operacio fue exitosa
+     */
     public boolean insertarEmpleado(Empleado empleado) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -90,6 +105,11 @@ public class EmpleadoDAO {
         return resultado;
     }
 
+    /**
+     * Obtiene un empleado de la base de datos por el identificador
+     * @param id_empleado El identificador del empleado
+     * @return La informacion del empleado
+     */
     public Empleado obtenerEmpleadoPorId(int id_empleado) {
         Empleado empleado = null;
         Connection con = Conexion.getConnection();
@@ -125,6 +145,11 @@ public class EmpleadoDAO {
         return empleado;
     }
 
+    /**
+     * Lista a los empleados segun un parametro de busqueda
+     * @param nombre El nombre del empleado
+     * @return La lista de empleados
+     */
     public ArrayList<Empleado> listarEmpleadosPorNombre(String nombre) {
         ArrayList<Empleado> empleados = new ArrayList<>();
         Connection con = Conexion.getConnection();
@@ -160,6 +185,11 @@ public class EmpleadoDAO {
         return empleados;
     }
 
+    /**
+     * Lista a los empleados de la base de datos
+     * @param orden El tipo de orden que ordenará la lista
+     * @return La lista de empleados
+     */
     public ArrayList<Empleado> listarEmpleados(int orden) {
         ArrayList<Empleado> empleados = new ArrayList<>();
         Connection con = Conexion.getConnection();

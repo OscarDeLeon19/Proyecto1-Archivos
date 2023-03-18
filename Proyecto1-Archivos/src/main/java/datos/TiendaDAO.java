@@ -11,6 +11,10 @@ import javax.swing.JOptionPane;
 
 public class TiendaDAO {
 
+    /**
+     * Lista las tiendas que se encuetran en la base de datos
+     * @return La lista de tiendas
+     */
     public ArrayList<Tienda> listarTiendas() {
         ArrayList<Tienda> empleados = new ArrayList<>();
         Connection con = Conexion.getConnection();

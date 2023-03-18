@@ -8,6 +8,11 @@ import javax.swing.JOptionPane;
 
 public class ProductoDAO {
 
+    /**
+     * Elimina un producto de la base de datos
+     * @param producto El producto que se eliminará
+     * @return Un booleano que indica si la operacion fue exitosa
+     */
     public boolean eliminarProducto(Producto producto) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -31,6 +36,11 @@ public class ProductoDAO {
         return resultado;
     }
 
+    /**
+     * Actualiza la informacion del producto de una base de datos
+     * @param producto El producto que se actualizará
+     * @return Un booleano que indica si la operacion fue exitosa
+     */
     public boolean actualizarProducto(Producto producto) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -59,6 +69,11 @@ public class ProductoDAO {
         return resultado;
     }
 
+    /**
+     * Inserta un producto en la base de datos
+     * @param producto El producto que se insertará en la base de datos
+     * @return Un booleano que indica si la operacion fue exitosa
+     */
     public boolean insertarProducto(Producto producto) {
         boolean resultado = true;
         Connection con = Conexion.getConnection();
@@ -88,6 +103,12 @@ public class ProductoDAO {
         return resultado;
     }
 
+    /**
+     * Lista a los productos por codigo y el id de la tienda
+     * @param codigo El codigo del producto
+     * @param id_tienda El id de la tienda
+     * @return La informacion del producto
+     */
     public Producto listarProductosPorCodigo(String codigo, int id_tienda) {
         Producto producto = null;
         Connection con = Conexion.getConnection();
@@ -123,6 +144,11 @@ public class ProductoDAO {
         return producto;
     }
 
+    /**
+     * Lista a los productos que se encuentran en una tienda diferente a la indicada
+     * @param id_tienda El identificador de la tienda actual
+     * @return La lista de productos
+     */
     public ArrayList<Producto> listarProductosDeOtraTienda(int id_tienda) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();
@@ -162,6 +188,12 @@ public class ProductoDAO {
         return productos;
     }
 
+    /**
+     * Lista a los productos filtrados por un parametro de busqueda
+     * @param id_tienda El id de la tienda actual
+     * @param nombre El paremetro de busqueda
+     * @return La lista de productos
+     */
     public ArrayList<Producto> listarProductosPorNombreInventario(int id_tienda, String nombre) {
         ArrayList<Producto> productos = new ArrayList<>();
         Connection con = Conexion.getConnection();

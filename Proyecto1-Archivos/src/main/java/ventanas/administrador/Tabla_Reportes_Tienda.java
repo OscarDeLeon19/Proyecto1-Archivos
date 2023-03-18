@@ -18,7 +18,7 @@ public class Tabla_Reportes_Tienda extends javax.swing.JFrame {
     }
 
     public void actualizarTablaReporte1() {
-        ArrayList<Reporte> reportes1 = reporteDao.verReporteTienda(1);
+        ArrayList<Reporte> reportes1 = reporteDao.verReportePorTienda(1);
         labelTitulo.setText("Top 10 productos mas vendidos por tienda");
         DefaultTableModel modelo1 = new DefaultTableModel();
         modelo1.addColumn("Ventas Realizadas");
@@ -50,7 +50,7 @@ public class Tabla_Reportes_Tienda extends javax.swing.JFrame {
         tabla1.getColumnModel().getColumn(4).setCellRenderer(alineacion1);
 
         // Tabla 2
-        ArrayList<Reporte> reportes2 = reporteDao.verReporteTienda(2);
+        ArrayList<Reporte> reportes2 = reporteDao.verReportePorTienda(2);
         DefaultTableModel modelo2 = new DefaultTableModel();
         modelo2.addColumn("Ventas Realizadas");
         modelo2.addColumn("Id del Producto");
@@ -81,7 +81,7 @@ public class Tabla_Reportes_Tienda extends javax.swing.JFrame {
         tabla2.getColumnModel().getColumn(4).setCellRenderer(alineacion2);
 
         // Tabla 3
-        ArrayList<Reporte> reportes3 = reporteDao.verReporteTienda(3);
+        ArrayList<Reporte> reportes3 = reporteDao.verReportePorTienda(3);
         DefaultTableModel modelo3 = new DefaultTableModel();
         modelo3.addColumn("Ventas Realizadas");
         modelo3.addColumn("Id del Producto");
@@ -224,7 +224,7 @@ public class Tabla_Reportes_Tienda extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tabla3 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

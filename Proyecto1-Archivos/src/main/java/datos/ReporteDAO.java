@@ -11,6 +11,11 @@ import javax.swing.JOptionPane;
 
 public class ReporteDAO {
 
+    /**
+     * Obtiene la lista de reportes donde se haga el conteo de ventas
+     * @param tipo El tipo de reporte que se buscará
+     * @return La lista de reportes
+     */
     public ArrayList<Reporte> verReporteCantidad(int tipo) {
         ArrayList<Reporte> reporte = new ArrayList<>();
         Connection con = Conexion.getConnection();
@@ -60,6 +65,11 @@ public class ReporteDAO {
         return reporte;
     }
 
+    /**
+     * Lista a los repotes donde se realice la suma de totales
+     * @param tipo El tipo de reporte
+     * @return La lista de reportes
+     */
     public ArrayList<Reporte> verReporteSuma(int tipo) {
         ArrayList<Reporte> reporte = new ArrayList<>();
         Connection con = Conexion.getConnection();
@@ -115,7 +125,12 @@ public class ReporteDAO {
         return reporte;
     }
 
-    public ArrayList<Reporte> verReporteTienda(int id_tienda) {
+    /**
+     * Lista a los produtos mas vendidos de una tienda
+     * @param id_tienda El identificador de la tienda
+     * @return La lista de reportes
+     */
+    public ArrayList<Reporte> verReportePorTienda(int id_tienda) {
         ArrayList<Reporte> reporte = new ArrayList<>();
         Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
@@ -151,7 +166,11 @@ public class ReporteDAO {
         }
         return reporte;
     }
-
+    /**
+     * Lista a los productos que mas generan ganancias por tienda
+     * @param id_tienda El identificador de la tienda
+     * @return La lista de reportes
+     */
     public ArrayList<Reporte> verReporteTiendaGanancias(int id_tienda) {
         ArrayList<Reporte> reporte = new ArrayList<>();
         Connection con = Conexion.getConnection();

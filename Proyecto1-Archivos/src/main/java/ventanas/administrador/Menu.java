@@ -8,6 +8,10 @@ public class Menu extends javax.swing.JFrame {
     private Empleado empleado;
     private Manejo_Empleados manejo;
     
+    /**
+     * Constructor de la clase menu
+     * @param empleado El empleado de la base de datos
+     */
     public Menu(Empleado empleado) {
         initComponents();
         this.empleado = empleado;
@@ -74,10 +78,18 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Abre la ventana de manejo
+     * @param evt 
+     */
     private void botonEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEmpleadosActionPerformed
         manejo.setVisible(true);
     }//GEN-LAST:event_botonEmpleadosActionPerformed
 
+    /**
+     * Abre la ventana de reportes
+     * @param evt 
+     */
     private void botonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReportesActionPerformed
         Reportes reportes = new Reportes();
         reportes.setVisible(true);
