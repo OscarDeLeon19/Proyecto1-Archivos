@@ -22,8 +22,12 @@ public class Inventario extends javax.swing.JFrame {
     private Tienda tienda;
     private Producto productoSeleccionado;
     private ArrayList<Producto> productosIngreso = new ArrayList<>();
-    Lista_Productos lista = new Lista_Productos(productosIngreso);
+    private Lista_Productos lista = new Lista_Productos(productosIngreso);
 
+    /**
+     * Constructor de la clase inventario
+     * @param empleado El empleado actual
+     */
     public Inventario(Empleado empleado) {
         initComponents();
         setResizable(false);
@@ -364,6 +368,11 @@ public class Inventario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obtiene el valor de la caja de texto y llama al metodo de busqueda de la base de datos.
+     * Actualiza la tabla de datos
+     * @param evt 
+     */
     private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
         String texto = textoBuscar.getText();
         ArrayList<Producto> productos = productoDao.listarProductosPorNombreInventario(empleado.getId_tienda(), texto);
@@ -393,6 +402,11 @@ public class Inventario extends javax.swing.JFrame {
         tabla1.setEditingRow(2);
     }//GEN-LAST:event_botonBusquedaActionPerformed
 
+    /**
+     * Evento que surge al presionar la tabla
+     * Obtiene el valor de la fila y lo busca en la base de datos
+     * @param evt 
+     */
     private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
         int Fila = tabla1.getSelectedRow();
         String id = tabla1.getValueAt(Fila, 0).toString();
@@ -400,6 +414,11 @@ public class Inventario extends javax.swing.JFrame {
         actualizarProductoSeleccionado();
     }//GEN-LAST:event_tabla1MouseClicked
 
+    /**
+     * Aumenta la cantidad de productos que vamos a mover
+     * Si la cantidad es mayor a la del producto seleccioado saltara un error
+     * @param evt 
+     */
     private void botonAumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAumentarActionPerformed
         int cantidad = Integer.parseInt(textoCantidad.getText());
         cantidad++;
@@ -410,6 +429,10 @@ public class Inventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAumentarActionPerformed
 
+    /**
+     * Disminuye la cantidad de productos que vamos a mover
+     * @param evt 
+     */
     private void botonDisminuirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDisminuirActionPerformed
         int cantidad = Integer.parseInt(textoCantidad.getText());
         cantidad--;
@@ -420,6 +443,11 @@ public class Inventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonDisminuirActionPerformed
 
+    /**
+     * Agrega un producto a la lista de productos
+     * Comprueba que el producto no se repita
+     * @param evt 
+     */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         boolean comprobacion = false;
         for (Producto producto : productosIngreso) {
@@ -445,10 +473,19 @@ public class Inventario extends javax.swing.JFrame {
         lista.actualizarTablaProductos();
     }//GEN-LAST:event_botonAgregarActionPerformed
 
+    /**
+     * Abre la lista de productos agregados
+     * @param evt 
+     */
     private void botonListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoActionPerformed
         lista.abrir();
     }//GEN-LAST:event_botonListadoActionPerformed
 
+    /**
+     * Mueve los productos de una tienda a otra
+     * Comprueba si el producto ya existe en la tienda o si hay que crear uno nuevo
+     * @param evt 
+     */
     private void botonTransferirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonTransferirActionPerformed
         if (productosIngreso.size() > 0) {
             for (Producto producto : productosIngreso) {
@@ -490,11 +527,18 @@ public class Inventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonTransferirActionPerformed
 
+    /**
+     * Borra el producto que esta en uso actualmente
+     * @param evt 
+     */
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         productosIngreso.clear();
         lista.actualizarTablaProductos();
     }//GEN-LAST:event_botonBorrarActionPerformed
 
+    /**
+     * Actualiza los datos de la tabla de productos
+     */
     public void actualizarTablaProductos() {
         ArrayList<Producto> productos = productoDao.listarProductosDeOtraTienda(empleado.getId_tienda());
 
@@ -522,6 +566,9 @@ public class Inventario extends javax.swing.JFrame {
         tabla1.setModel(modelo);
     }
 
+    /**
+     * Actualiza la tabla de productos de la tienda actual
+     */
     public void actualizarTablaActual() {
         ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), true, 0);
 
@@ -547,6 +594,9 @@ public class Inventario extends javax.swing.JFrame {
         tabla2.setModel(modelo);
     }
 
+    /**
+     * Actualiza los datos del producto seleccionado
+     */
     private void actualizarProductoSeleccionado() {
         textoNombre.setText(productoSeleccionado.getNombre());
         textoFabricante.setText(productoSeleccionado.getFabricante());
@@ -558,6 +608,9 @@ public class Inventario extends javax.swing.JFrame {
         botonAgregar.setEnabled(true);
     }
 
+    /**
+     * Limpia los datos de la caja de texto
+     */
     public void limpiarDatos() {
         textoNombre.setText("");
         textoFabricante.setText("");

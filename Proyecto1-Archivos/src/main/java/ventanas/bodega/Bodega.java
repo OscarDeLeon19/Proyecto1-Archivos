@@ -22,6 +22,10 @@ public class Bodega extends javax.swing.JFrame {
     private Producto productoSeleccionado;
     private Tienda tienda;
 
+    /**
+     * Constructor de la clase bodega
+     * @param empleado El empleado del proyecto
+     */
     public Bodega(Empleado empleado) {
         initComponents();
         this.empleado = empleado;
@@ -263,6 +267,10 @@ public class Bodega extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Boton que obtiene el texto de la caja de texto y llama a hacer una busqueda en la base de datos
+     * @param evt 
+     */
     private void botonBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusquedaActionPerformed
         String texto = textoBuscar.getText();
         ArrayList<Producto> productos = productoDao.listarProductosPorNombre(empleado.getId_tienda(), texto);
@@ -290,6 +298,11 @@ public class Bodega extends javax.swing.JFrame {
         tabla1.setEditingRow(2);
     }//GEN-LAST:event_botonBusquedaActionPerformed
 
+    /**
+     * Evento al presionar la tabla
+     * Obtiene el valor de la fila y asi obtiene el producto seleccionado de la base de datos
+     * @param evt 
+     */
     private void tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabla1MouseClicked
         int Fila = tabla1.getSelectedRow();
         String id = tabla1.getValueAt(Fila, 0).toString();
@@ -298,11 +311,20 @@ public class Bodega extends javax.swing.JFrame {
         botonBorrar.setEnabled(true);
     }//GEN-LAST:event_tabla1MouseClicked
 
+    /**
+     * Crea una ventana de datos para agregar un producto
+     * @param evt 
+     */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         Datos_Producto datos = new Datos_Producto(null, false, this);
         datos.setVisible(true);
     }//GEN-LAST:event_botonAgregarActionPerformed
 
+    /**
+     * Crea una ventana para modificar productos
+     * Habilita los botones de mostrar y modificar
+     * @param evt 
+     */
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         Datos_Producto datos = new Datos_Producto(productoSeleccionado, true, this);
         datos.setVisible(true);
@@ -311,6 +333,11 @@ public class Bodega extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonModificarActionPerformed
 
+    /**
+     * Comprueba si se quiere borrar un producto
+     * Llama al metodo para borrar el producto
+     * @param evt 
+     */
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBorrarActionPerformed
         int opcion = JOptionPane.showConfirmDialog(null, "¿Estas seguro de borrar el producto: \n"
                 + "Nombre: " + productoSeleccionado.getNombre() + "\n"
@@ -326,22 +353,42 @@ public class Bodega extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonBorrarActionPerformed
 
+    /**
+     * Actualiza la tabla de productos en base a un parametro
+     * @param evt 
+     */
     private void botonIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIdActionPerformed
         actualizarTabla(0);
     }//GEN-LAST:event_botonIdActionPerformed
 
+    /**
+     * Actualiza la tabla de productos en base a un parametro
+     * @param evt 
+     */
     private void botonNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNombreActionPerformed
         actualizarTabla(1);
     }//GEN-LAST:event_botonNombreActionPerformed
 
+    /**
+     * Actualiza la tabla de productos en base a un parametro
+     * @param evt 
+     */
     private void botonFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFabricanteActionPerformed
         actualizarTabla(2);
     }//GEN-LAST:event_botonFabricanteActionPerformed
 
+    /**
+     * Actualiza la tabla de productos en base a un parametro
+     * @param evt 
+     */
     private void botonPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPrecioActionPerformed
        actualizarTabla(3);
     }//GEN-LAST:event_botonPrecioActionPerformed
 
+    /**
+     * Actualiza la tabla de productos en base a un parametro
+     * @param evt 
+     */
     public void actualizarTabla(int orden) {
         ArrayList<Producto> productos = productoDao.listarProductosPorTienda(empleado.getId_tienda(), true, orden);
 
@@ -365,7 +412,10 @@ public class Bodega extends javax.swing.JFrame {
         }
         tabla1.setModel(modelo);
     }
-
+    
+    /**
+     * Elimina la variable del producto seleccionado
+     */
     public void eliminarProductoSeleccionado() {
         productoSeleccionado = null;
         botonModificar.setEnabled(false);

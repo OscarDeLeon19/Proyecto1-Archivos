@@ -9,14 +9,20 @@ import javax.swing.table.DefaultTableModel;
 
 public class Tabla_Reportes_Tienda extends javax.swing.JFrame {
 
-    ReporteDAO reporteDao = new ReporteDAO();
+    private ReporteDAO reporteDao = new ReporteDAO();
 
+    /**
+     * Constructor de la tabla de reportes por tienda
+     */
     public Tabla_Reportes_Tienda() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
 
+    /**
+     * Actualiza los dato de la tabla segun el reporte 1
+     */
     public void actualizarTablaReporte1() {
         ArrayList<Reporte> reportes1 = reporteDao.verReportePorTienda(1);
         labelTitulo.setText("Top 10 productos mas vendidos por tienda");
@@ -113,6 +119,9 @@ public class Tabla_Reportes_Tienda extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Actualiza los dato de la tabla segun el reporte 2
+     */
     public void actualizarTablaReporte2() {
         ArrayList<Reporte> reportes1 = reporteDao.verReporteTiendaGanancias(1);
         labelTitulo.setText("Top 10 productos con mas ingresos por tienda");

@@ -8,9 +8,14 @@ public class Datos_Producto extends javax.swing.JFrame {
 
     private ProductoDAO prDao = new ProductoDAO();
     private Bodega bodega;
-
     private Producto producto;
 
+    /**
+     * Constructor de la case Datos_Producto
+     * @param producto El producto que se modificara
+     * @param modificacion Si la accionsera de modificar o agregar
+     * @param bodega Clase padre bodega
+     */
     public Datos_Producto(Producto producto, boolean modificacion, Bodega bodega) {
         initComponents();
         setResizable(false);
@@ -149,6 +154,11 @@ public class Datos_Producto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Obtiene los valores de las cajas de texto
+     * Llama al metodo para agregar un producto
+     * @param evt 
+     */
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         try {
             String nombre = textoNombre.getText();
@@ -180,6 +190,11 @@ public class Datos_Producto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonAgregarActionPerformed
 
+    /**
+     * Obtiene los datos de la cajas de texto
+     * Llama al metodo para modificar el producto
+     * @param evt 
+     */
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarActionPerformed
         try {
             String nombre = textoNombre.getText();
@@ -209,6 +224,10 @@ public class Datos_Producto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonModificarActionPerformed
 
+    /**
+     * Actualiza los valores de las cajas de texto
+     * Utiliza los datos del producto actual
+     */
     public void actualizarCajasDeTexto() {
         textoNombre.setText(producto.getNombre());
         textoFabricante.setText(producto.getFabricante());
@@ -218,6 +237,11 @@ public class Datos_Producto extends javax.swing.JFrame {
         textoCodigo.setEnabled(false);
     }
 
+    /**
+     * Comprueba si un producto ya se encuentra agregado en la tienda
+     * @param codigo El codigo del producto
+     * @return Si el producto es nulo o tiene datos
+     */
     public boolean comprobacion(String codigo) {
         Producto pr = prDao.listarProductosPorCodigo(codigo, 4);
         return pr == null;
