@@ -232,7 +232,7 @@ public class Datos_Empleado extends javax.swing.JFrame {
         String rol = String.valueOf(listaRol.getSelectedItem());
         int numberTienda = listaTienda.getSelectedIndex();
         int tienda = tiendas.get(numberTienda).getId_tienda();
-        String contraseña = generarContraseña(8);
+        String contraseña = generarContraseña(6);
         Empleado nuevoEmpleado = new Empleado(0, nombre, telefono, rol, dpi, tienda, usuario, contraseña);
         boolean resultado = empleadoDao.insertarEmpleado(nuevoEmpleado);
         if (resultado == true) {
