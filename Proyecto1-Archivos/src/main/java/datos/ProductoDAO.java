@@ -15,11 +15,10 @@ public class ProductoDAO {
      */
     public boolean eliminarProducto(Producto producto) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "DELETE FROM ControlEmpresa.Producto WHERE id_producto = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, producto.getId_producto());
             pr.executeUpdate();
         } catch (SQLException e) {
@@ -27,7 +26,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al borrar producto: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -43,11 +41,10 @@ public class ProductoDAO {
      */
     public boolean actualizarProducto(Producto producto) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "UPDATE ControlEmpresa.Producto SET nombre = ?, fabricante = ?, codigo = ?, precio = ?, cantidad = ? WHERE id_producto = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, producto.getNombre());
             pr.setString(2, producto.getFabricante());
             pr.setString(3, producto.getCodigo());
@@ -60,7 +57,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al actualizar producto: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -76,11 +72,10 @@ public class ProductoDAO {
      */
     public boolean insertarProducto(Producto producto) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "INSERT INTO ControlEmpresa.Producto (nombre, fabricante, codigo, precio, cantidad, id_tienda) VALUES (?, ?, ?, ?, ?, ?);";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, producto.getNombre());
             pr.setString(2, producto.getFabricante());
             pr.setString(3, producto.getCodigo());
@@ -94,7 +89,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al ingresar producto: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -111,12 +105,11 @@ public class ProductoDAO {
      */
     public Producto listarProductosPorCodigo(String codigo, int id_tienda) {
         Producto producto = null;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Producto WHERE codigo = ? AND id_tienda = ?;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, codigo);
             pr.setInt(2, id_tienda);
             rs = pr.executeQuery();
@@ -134,7 +127,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -151,7 +143,6 @@ public class ProductoDAO {
      */
     public ArrayList<Producto> listarProductosDeOtraTienda(int id_tienda) {
         ArrayList<Producto> productos = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT p.id_producto, p.nombre, p.fabricante, p.codigo, p.precio, p.cantidad, t.nombre as Tienda \n"
@@ -160,7 +151,7 @@ public class ProductoDAO {
                 + "	WHERE p.id_tienda != ? AND p.cantidad > 0\n"
                 + "	ORDER BY p.id_producto ASC;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -178,7 +169,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -196,7 +186,6 @@ public class ProductoDAO {
      */
     public ArrayList<Producto> listarProductosPorNombreInventario(int id_tienda, String nombre) {
         ArrayList<Producto> productos = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT p.id_producto, p.nombre, p.fabricante, p.codigo, p.precio, p.cantidad, t.nombre as Tienda \n"
@@ -205,7 +194,7 @@ public class ProductoDAO {
                 + "	WHERE p.nombre ILIKE '%" + nombre + "%' AND p.id_tienda != ? AND p.cantidad > 0\n"
                 + "	ORDER BY p.id_producto ASC;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -223,7 +212,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -242,11 +230,10 @@ public class ProductoDAO {
      */
     public boolean actualizarExistencias(Producto producto) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "UPDATE ControlEmpresa.Producto SET cantidad = ? WHERE id_producto = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, producto.getCantidad());
             pr.setInt(2, producto.getId_producto());
             pr.executeUpdate();
@@ -255,7 +242,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al actualizar producto: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -272,7 +258,6 @@ public class ProductoDAO {
      */
     public ArrayList<Producto> listarProductosPorTienda(int id_tienda, boolean inventario, int orden) {
         ArrayList<Producto> productos = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "";
@@ -295,7 +280,7 @@ public class ProductoDAO {
                 query += "ORDER BY id_producto ASC;";
         }
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -313,7 +298,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -332,12 +316,11 @@ public class ProductoDAO {
      */
     public ArrayList<Producto> listarProductosPorNombre(int id_tienda, String nombre) {
         ArrayList<Producto> productos = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Producto WHERE nombre ILIKE '%" + nombre + "%' AND id_tienda = ? AND cantidad > 0 ORDER BY id_producto ASC;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -355,7 +338,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -373,12 +355,11 @@ public class ProductoDAO {
      */
     public Producto listarProductosPorId(int id_producto) {
         Producto producto = null;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Producto WHERE id_producto = ?;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_producto);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -395,7 +376,6 @@ public class ProductoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {

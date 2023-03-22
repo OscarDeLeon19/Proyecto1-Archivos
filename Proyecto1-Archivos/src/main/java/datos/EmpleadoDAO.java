@@ -15,11 +15,10 @@ public class EmpleadoDAO {
      */
     public boolean borrarEmpleado(Empleado empleado) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "DELETE FROM ControlPersonal.Empleado WHERE id_empleado = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, empleado.getId_empleado());
             pr.executeUpdate();
         } catch (SQLException e) {
@@ -27,7 +26,6 @@ public class EmpleadoDAO {
             JOptionPane.showMessageDialog(null, "Error al borrar empleado: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -43,11 +41,10 @@ public class EmpleadoDAO {
      */
     public boolean actualizarEmpleado(Empleado empleado) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "UPDATE ControlPersonal.Empleado SET nombre = ?, telefono = ?, rol = ?, dpi = ?, id_tienda = ?, username = ? WHERE id_empleado = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, empleado.getNombre());
             pr.setString(2, empleado.getTelefono());
             pr.setString(3, empleado.getRol());
@@ -61,7 +58,6 @@ public class EmpleadoDAO {
             JOptionPane.showMessageDialog(null, "Error al actualizar empleado: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -77,11 +73,10 @@ public class EmpleadoDAO {
      */
     public boolean insertarEmpleado(Empleado empleado) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
-        String query = "INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES (?, ?, ?, ?, ?, ?, md5(?));";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, empleado.getNombre());
             pr.setString(2, empleado.getTelefono());
             pr.setString(3, empleado.getRol());
@@ -96,7 +91,6 @@ public class EmpleadoDAO {
             JOptionPane.showMessageDialog(null, "Error al ingresar empleado: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -112,12 +106,11 @@ public class EmpleadoDAO {
      */
     public Empleado obtenerEmpleadoPorId(int id_empleado) {
         Empleado empleado = null;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlPersonal.Empleado WHERE Id_empleado = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_empleado);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -135,7 +128,6 @@ public class EmpleadoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -152,14 +144,13 @@ public class EmpleadoDAO {
      */
     public ArrayList<Empleado> listarEmpleadosPorNombre(String nombre) {
         ArrayList<Empleado> empleados = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT e.Id_empleado, e.Nombre, e.Telefono, e.Rol, e.Dpi, t.Nombre\n"
                 + "	FROM ControlPersonal.Empleado e JOIN ControlEmpresa.Tienda t\n"
                 + "	ON e.Id_tienda = t.Id_tienda WHERE e.Nombre ILIKE '%" + nombre + "%' ORDER BY e.Id_empleado ASC;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             rs = pr.executeQuery();
             while (rs.next()) {
                 Empleado nuevo = new Empleado();
@@ -175,7 +166,6 @@ public class EmpleadoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -192,7 +182,6 @@ public class EmpleadoDAO {
      */
     public ArrayList<Empleado> listarEmpleados(int orden) {
         ArrayList<Empleado> empleados = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT e.Id_empleado, e.Nombre, e.Telefono, e.Rol, e.Dpi, t.Nombre\n"
@@ -212,7 +201,7 @@ public class EmpleadoDAO {
                 query += "ORDER BY e.Id_empleado ASC;";
         }
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             rs = pr.executeQuery();
             while (rs.next()) {
                 Empleado nuevo = new Empleado();
@@ -228,7 +217,6 @@ public class EmpleadoDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -248,11 +236,10 @@ public class EmpleadoDAO {
      */
     public Empleado obtenerEmpleadoLogin(String username, String password) throws SQLException {
         Empleado empleado = null;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr;
         ResultSet rs;
-        String query = "SELECT * FROM ControlPersonal.Empleado WHERE username = ? AND password = ?;";
-        pr = con.prepareStatement(query);
+        String query = "SELECT * FROM ControlPersonal.Empleado WHERE username = ? AND password = md5(?);";
+        pr = Conexion.connection.prepareStatement(query);
         pr.setString(1, username);
         pr.setString(2, password);
         rs = pr.executeQuery();
@@ -268,7 +255,6 @@ public class EmpleadoDAO {
             empleado.setPassword(rs.getString(8));
         }
 
-        con.close();
         pr.close();
         rs.close();
         return empleado;

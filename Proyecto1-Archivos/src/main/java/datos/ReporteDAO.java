@@ -18,7 +18,6 @@ public class ReporteDAO {
      */
     public ArrayList<Reporte> verReporteCantidad(int tipo) {
         ArrayList<Reporte> reporte = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "";
@@ -42,7 +41,7 @@ public class ReporteDAO {
                 query = "";
         }
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             rs = pr.executeQuery();
             while (rs.next()) {
                 Reporte nuevo = new Reporte();
@@ -55,7 +54,6 @@ public class ReporteDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -72,7 +70,6 @@ public class ReporteDAO {
      */
     public ArrayList<Reporte> verReporteSuma(int tipo) {
         ArrayList<Reporte> reporte = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "";
@@ -102,7 +99,7 @@ public class ReporteDAO {
                 query = "";
         }
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             rs = pr.executeQuery();
             while (rs.next()) {
                 Reporte nuevo = new Reporte();
@@ -115,7 +112,6 @@ public class ReporteDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -132,7 +128,6 @@ public class ReporteDAO {
      */
     public ArrayList<Reporte> verReportePorTienda(int id_tienda) {
         ArrayList<Reporte> reporte = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT COUNT(p.id_producto) as Ventas,  p.id_producto, p.nombre, p.id_tienda, t.nombre as Tienda FROM ControlEmpresa.Producto p\n"
@@ -141,7 +136,7 @@ public class ReporteDAO {
                 + "	WHERE p.id_tienda = ?\n"
                 + "	GROUP BY(p.id_producto, t.id_tienda) ORDER BY Ventas DESC LIMIT 5;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -157,7 +152,6 @@ public class ReporteDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -173,7 +167,6 @@ public class ReporteDAO {
      */
     public ArrayList<Reporte> verReporteTiendaGanancias(int id_tienda) {
         ArrayList<Reporte> reporte = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT SUM(v.total) as Ingresos,  p.id_producto, p.nombre, p.id_tienda, t.nombre as Tienda FROM ControlEmpresa.Producto p\n"
@@ -182,7 +175,7 @@ public class ReporteDAO {
                 + "	WHERE p.id_tienda = ?\n"
                 + "	GROUP BY(p.id_producto, t.id_tienda) ORDER BY Ingresos DESC LIMIT 5;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -198,7 +191,6 @@ public class ReporteDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {

@@ -17,12 +17,11 @@ public class TiendaDAO {
      */
     public ArrayList<Tienda> listarTiendas() {
         ArrayList<Tienda> empleados = new ArrayList<>();
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Tienda;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             rs = pr.executeQuery();
             while (rs.next()) {
                 Tienda nuevo = new Tienda();
@@ -36,7 +35,6 @@ public class TiendaDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -54,12 +52,11 @@ public class TiendaDAO {
      */
     public Tienda listarTiendaPorCodigo(int id_tienda) {
         Tienda tienda = null;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlEmpresa.Tienda WHERE id_tienda = ?;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setInt(1, id_tienda);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -73,7 +70,6 @@ public class TiendaDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {

@@ -17,12 +17,11 @@ public class ClienteDAO {
      */
     public Cliente listarClientePorNit(String nit_cliente) {
         Cliente cliente = null;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         ResultSet rs = null;
         String query = "SELECT * FROM ControlPersonal.Cliente WHERE nit_cliente = ?;";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, nit_cliente);
             rs = pr.executeQuery();
             while (rs.next()) {
@@ -38,7 +37,6 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Error al hacer busqueda en base de datos: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
                 rs.close();
             } catch (SQLException e) {
@@ -55,11 +53,10 @@ public class ClienteDAO {
      */
     public boolean insertarCliente(Cliente cliente) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "INSERT INTO ControlPersonal.Cliente VALUES (?, ?, ?, ?, ?, ?);";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, cliente.getNit_cliente());
             pr.setString(2, cliente.getNombre());
             pr.setString(3, cliente.getCorreo());
@@ -73,7 +70,6 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Error al ingresar cliente: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -89,11 +85,10 @@ public class ClienteDAO {
      */
     public boolean actualizarCliente(Cliente cliente) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "UPDATE ControlPersonal.Cliente SET nombre = ?, correo = ?, telefono = ?, dpi = ? WHERE nit_cliente = ?";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setString(1, cliente.getNombre());
             pr.setString(2, cliente.getCorreo());
             pr.setString(3, cliente.getTelefono());
@@ -106,7 +101,6 @@ public class ClienteDAO {
             JOptionPane.showMessageDialog(null, "Error al actualizar cliente: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());
@@ -144,14 +138,12 @@ public class ClienteDAO {
      */
     public boolean actualizarDescuentoCliente(Cliente cliente) throws SQLException {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "UPDATE ControlPersonal.Cliente SET descuento = ? WHERE nit_cliente = ?";
-        pr = con.prepareStatement(query);
+        pr = Conexion.connection.prepareStatement(query);
         pr.setInt(1, cliente.getDescuento());
         pr.setString(2, cliente.getNit_cliente());
         pr.executeUpdate();
-        con.close();
         pr.close();
         return resultado;
     }

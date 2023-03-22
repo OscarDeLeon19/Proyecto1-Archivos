@@ -22,11 +22,10 @@ public class VentaDAO {
      */
     public boolean insertarVenta(Venta venta) {
         boolean resultado = true;
-        Connection con = Conexion.getConnection();
         PreparedStatement pr = null;
         String query = "INSERT INTO ControlVentas.Venta (fecha, id_empleado, id_producto, cantidad, total, nit_cliente, id_tienda) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
-            pr = con.prepareStatement(query);
+            pr = Conexion.connection.prepareStatement(query);
             pr.setDate(1, venta.getFecha());
             pr.setInt(2, venta.getId_empleado());
             pr.setInt(3, venta.getId_producto());
@@ -40,7 +39,6 @@ public class VentaDAO {
             JOptionPane.showMessageDialog(null, "Error al ingresar venta: " + e.getMessage());
         } finally {
             try {
-                con.close();
                 pr.close();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Error al cerrar conexiones: " + e.getMessage());

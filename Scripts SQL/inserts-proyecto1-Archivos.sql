@@ -120,29 +120,29 @@ INSERT INTO ControlEmpresa.Producto (nombre, fabricante, codigo, precio, cantida
 -- Empleados
 
 -- Vendedores
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Oscar de Leon', '77448899', 'Vendedor','7085431934976', 1, 'user1','wTSGVu');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Feliciana del Ruano', '29208631', 'Vendedor','7344725549678', 1,'user2', 'ZTffz8');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Maricruz Castañeda Garzon', '68880324', 'Vendedor','5513083557422', 1,'user3', 'hS5ol5');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Lalo del Sedano', '62258180', 'Vendedor','2755568213119', 2,'user4', 'vG5U2S');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Samanta Alberdi Castilla', '78257787', 'Vendedor','1122477000992', 2,'user5', 'lUFoKo');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Sergio Miranda Carlos', '29097171', 'Vendedor','2389556692679', 2,'user6', 'j6jn1e');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Wilfredo Diaz Andres', '46957756', 'Vendedor','4546403849286', 3,'user7', 'beu4AH');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Primitivo Manzano Moran', '84709483', 'Vendedor','5232071593234', 3,'user8', 'HmfVsp');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Claudio Aramburu Aller', '16864885', 'Vendedor','9583099722023', 3,'user9', 'gwzird');
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Oscar de Leon', '77448899', 'Vendedor','7085431934976', 1, 'user1',md5('wTSGVu'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Feliciana del Ruano', '29208631', 'Vendedor','7344725549678', 1,'user2', md5('ZTffz8'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Maricruz Castañeda Garzon', '68880324', 'Vendedor','5513083557422', 1,'user3', md5('hS5ol5'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Lalo del Sedano', '62258180', 'Vendedor','2755568213119', 2,'user4', md5('vG5U2S'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Samanta Alberdi Castilla', '78257787', 'Vendedor','1122477000992', 2,'user5', md5('lUFoKo'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Sergio Miranda Carlos', '29097171', 'Vendedor','2389556692679', 2,'user6', md5('j6jn1e'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Wilfredo Diaz Andres', '46957756', 'Vendedor','4546403849286', 3,'user7', md5('beu4AH'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Primitivo Manzano Moran', '84709483', 'Vendedor','5232071593234', 3,'user8', md5('HmfVsp'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Claudio Aramburu Aller', '16864885', 'Vendedor','9583099722023', 3,'user9', md5('gwzird'));
 
 -- Inventario
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Ezequiel Gelabert Cañas', '46267678', 'Inventario','7976855528534', 1,'user10', 'UBJSeM');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Cristina Canals Girona', '56972667', 'Inventario','2368645172735', 2,'user11', 'lpopUl');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Flor Uría-Guardiola', '60829668', 'Inventario','8091923889805', 3,'user12', 'Nehyjv');
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Ezequiel Gelabert Cañas', '46267678', 'Inventario','7976855528534', 1,'user10', md5('UBJSeM'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Cristina Canals Girona', '56972667', 'Inventario','2368645172735', 2,'user11', md5('lpopUl'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Flor Uría-Guardiola', '60829668', 'Inventario','8091923889805', 3,'user12', md5('Nehyjv'));
 
 -- Bodega
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Alberto Inigo Peralta Cabrera', '86490429', 'Bodega','1087708662778', 4,'user13', 'vOFy77');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Nerea Verdugo', '26624207', 'Bodega','1947826334884', 4,'user14', 'dn6CXc');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Anita Mata García', '13698830', 'Bodega','3876223571894', 4,'user15', 'W6cDHP');
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Perlita Castell Barral', '79192225', 'Bodega','2636545505878', 4,'user16', 'vk7ltQ');
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Alberto Inigo Peralta Cabrera', '86490429', 'Bodega','1087708662778', 4,'user13', md5('vOFy77'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Nerea Verdugo', '26624207', 'Bodega','1947826334884', 4,'user14', md5('dn6CXc'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Anita Mata García', '13698830', 'Bodega','3876223571894', 4,'user15', md5('W6cDHP'));
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Perlita Castell Barral', '79192225', 'Bodega','2636545505878', 4,'user16', md5('vk7ltQ'));
 
 -- Administrador
-INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Juan José Peiro Bolanos', '36666602', 'Administrador','5545346035273', 1,'user17', 'LqjiJs');
+INSERT INTO ControlPersonal.Empleado (nombre, telefono, rol, dpi, id_tienda, username, password) VALUES ('Juan José Peiro Bolanos', '36666602', 'Administrador','5545346035273', 1,'user17', md5('LqjiJs'));
 
 -- Clientes
 INSERT INTO ControlPersonal.Cliente VALUES ('000000000', 'Consumidor Final', '------', '------', '-----', 0);
