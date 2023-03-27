@@ -27,6 +27,7 @@ public class Datos_Cliente extends javax.swing.JFrame {
         if (actualizacion == false) {
             botonActualizarCliente.setEnabled(false);
             botonRegistrarCliente.setEnabled(true);
+            textoNit.setEnabled(true);
         } else {
             botonActualizarCliente.setEnabled(true);
             botonRegistrarCliente.setEnabled(false);

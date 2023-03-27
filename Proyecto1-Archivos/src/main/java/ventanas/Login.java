@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ventanas;
 
 import ventanas.vendedor.Vendedor;
@@ -39,7 +34,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setText("Sistema de Electronic-Homes");
 
-        jLabel2.setText("Id del Empleado: ");
+        jLabel2.setText("Username:");
 
         jLabel3.setText("Contraseña:");
 
@@ -72,7 +67,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addComponent(botonEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
